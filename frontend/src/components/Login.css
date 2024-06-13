@@ -1,0 +1,89 @@
+/** {
+    text-align: center;
+    background-image: url("https://images.hdqwalls.com/download/mountain-glasgow-4k-l4-1920x1080.jpg");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+}*/
+
+
+
+* {
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    margin-top: 40px;
+    font-size: 60px;
+}
+
+.subheader {
+    margin-top: 10px;
+    font-size: 35px;
+}
+
+.container {
+    color: white;
+    width: 300px;
+    background: blue;
+    margin: 0 auto;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the contents horizontally */
+    border-radius: 40px;
+}
+
+.container h1 {
+    font-size: 40px;
+}
+
+.container .input-box {
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+    display: flex; /* Use flexbox for the input box itself */
+    align-items: center; /* Center the input vertically */
+    justify-content: center; /* Center the input horizontally */
+}
+
+.container .input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid;
+    border-radius: 40px;
+    font-size: 15px;
+    text-align: start;
+    padding: 0 15px;
+    box-sizing: border-box; /* Ensure padding does not affect width */
+}
+
+.container .input-box input::placeholder {
+    color: white;
+    text-align: left;
+    font-size: 16px;
+}
+
+.container button {
+    margin: 0 auto;
+    width: 100%;
+    height: 45px;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+}
+
+.container .register {
+    margin: 15px;
+}
+
+.register a {
+    color:white;
+}
