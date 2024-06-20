@@ -5,6 +5,16 @@
     padding: 0;
 }
 
+.background {
+    background-image: url("https://images.hdqwalls.com/download/mountain-glasgow-4k-l4-1920x1080.jpg");
+    background-size: cover; 
+    width: 100%;
+    height: 100vh;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+}
+
 .container {
     color: white;
     width: 300px;
