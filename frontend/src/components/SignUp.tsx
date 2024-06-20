@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { signUp } from './auth';
+import React, { useState } from "react";
+import { signUp } from "./auth";
 import "./SignUp.css";
 
 const SignUp: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,33 +19,50 @@ const SignUp: React.FC = () => {
     if (error) {
       setMessage(`Error: ${error.message}`);
     } else {
-      setMessage('Sign up successful! Please check your email to confirm your account.');
+      setMessage(
+        "Sign up successful! Please check your email to confirm your account."
+      );
     }
   };
 
   return (
-    <div className='background'>
-      <div className='header'>
+    <div className="background">
+      <div className="header">
         <h1>EzTravel</h1>
       </div>
-      <div className='container'>
+      <div className="container">
         <form onSubmit={handleSignUp}>
           <h1>Travel With Us!</h1>
-          <div className='input-box'>
+          <div className="input-box">
             <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-        <div className='input-box'>
-        <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-      </div>
-      <div className='input-box'>
+          <div className="input-box">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-box">
             <label>Confirm Password:</label>
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
           </div>
-      <button type="submit">Sign Up</button>
-      <div>{message}</div>
-      </form>
+          <button type="submit">Sign Up</button>
+          <div>{message}</div>
+        </form>
       </div>
     </div>
   );
