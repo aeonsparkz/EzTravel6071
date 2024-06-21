@@ -7,6 +7,7 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,6 +16,7 @@ const SignIn: React.FC = () => {
       setMessage(`Error: ${error.message}`);
     } else {
       setMessage('Sign in successful!');
+      navigate('/Home');
     }
   };
 
@@ -22,7 +24,9 @@ const SignIn: React.FC = () => {
     
       <div className="background">
         <div className='header'>
+          <Link to="/" className='logo'>
             <h1>EzTravel</h1>
+          </Link>
         </div>
         <div className='subheader'>
             <h2>Travel Simply</h2>

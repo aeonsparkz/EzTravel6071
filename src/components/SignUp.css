@@ -5,6 +5,11 @@
     padding: 0;
 }
 
+.logo {
+    text-decoration: none;
+    color: inherit;
+}
+
 .background {
     background-image: url("https://images.hdqwalls.com/download/mountain-glasgow-4k-l4-1920x1080.jpg");
     background-size: cover; 
@@ -18,12 +23,12 @@
 .container {
     color: white;
     width: 300px;
-    background: blue;
+    background: rgb(91, 91, 235);
     margin: 0 auto;
     padding: 30px 40px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the contents horizontally */
+    align-items: center;
     border-radius: 40px;
 }
 
@@ -35,9 +40,9 @@
     width: 100%;
     height: 50px;
     margin: 30px 0;
-    display: flex; /* Use flexbox for the input box itself */
-    align-items: center; /* Center the input vertically */
-    justify-content: center; /* Center the input horizontally */
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
 }
 
 .container .input-box input {
@@ -51,7 +56,7 @@
     font-size: 15px;
     text-align: start;
     padding: 0 15px;
-    box-sizing: border-box; /* Ensure padding does not affect width */
+    box-sizing: border-box; 
     border-color: black;
     color: white;
 }

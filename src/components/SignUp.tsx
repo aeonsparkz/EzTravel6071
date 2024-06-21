@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { signUp } from "./auth";
 import "./SignUp.css";
+import { Link } from "react-router-dom"
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -28,7 +29,9 @@ const SignUp: React.FC = () => {
   return (
     <div className="background">
       <div className="header">
+        <Link to="/" className="logo">
         <h1>EzTravel</h1>
+        </Link>
       </div>
       <div className="container">
         <form onSubmit={handleSignUp}>
