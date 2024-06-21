@@ -21,7 +21,7 @@ const SignUp: React.FC = () => {
       setMessage(`Error: ${error.message}`);
     } else {
       setMessage(
-        "Sign up successful! Please check your email to confirm your account."
+        "Sign up successful! Please check your email to confirm your account. (Check Spam)"
       );
     }
   };
