@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import supabase from '../supabaseClient';
 import './WeeklySchedule.css';
+import Googlemaps from './Googlemaps';
+import Calendar from './Calendar';
 
 type Schedule = {
   id: string;
@@ -16,6 +18,8 @@ const WeeklySchedule: React.FC = () => {
   const [time, setTime] = useState<string>('');
   const [task, setTask] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+
+  const [popUp, setPopUp] = useState(false);
 
   useEffect(() => {
     fetchSchedules();
@@ -62,6 +66,7 @@ const WeeklySchedule: React.FC = () => {
   };
 
   return (
+    <>
     <div className='schedule-container'>
       <h1>Plan Your Weekly Schedule</h1>
       <form onSubmit={addSchedule}>
@@ -92,6 +97,10 @@ const WeeklySchedule: React.FC = () => {
             required
           />
         </div>
+        <div>
+          <button onClick={() => setPopUp(true)}>Add Location</button>
+          <Googlemaps trigger={popUp} setTrigger={setPopUp} />
+        </div>
         <button type="submit">Add Schedule</button>
       </form>
       <div>{message}</div>
@@ -104,6 +113,10 @@ const WeeklySchedule: React.FC = () => {
         ))}
       </div>
     </div>
+    <div className="calendar">
+    <Calendar />
+    </div>
+    </>
   );
 };
 
