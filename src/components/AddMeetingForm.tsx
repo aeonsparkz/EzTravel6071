@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Googlemaps from './Googlemaps';
 
 interface AddMeetingFormProps {
@@ -20,6 +20,19 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
     setTime('');
     setDescription('');
   };
+
+  type mapOutputProps = {
+    name: string | undefined;
+    address: string | undefined;
+  }
+
+
+  const [mapOutput, setMapOutput] = useState<mapOutputProps[]>([]);
+  const handleMapOutput = (props: mapOutputProps[]) => {
+    setMapOutput(
+      mapOutput.concat(props)
+    )
+  }
 
   return (
     <form onSubmit={handleSubmit} className="add-meeting-form">
@@ -54,9 +67,19 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
         />
       </div>
       <div>
-          <button onClick={() => setPopUp(true)}>Add Location</button>
-          <Googlemaps trigger={popUp} setTrigger={setPopUp} />
-        </div>
+        <button onClick={() => setPopUp(true)}>Add Location</button>
+        <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
+      </div>
+      {mapOutput.map((list) => {
+        return (
+          <div className="list_items">
+            ______________________________________________________
+            <p className="content">Name: {list.name}</p>
+            <p className="content">Address: {list.address}</p>
+          </div>
+        )
+      }
+      )}
       <button type="submit">Add Meeting</button>
     </form>
   );

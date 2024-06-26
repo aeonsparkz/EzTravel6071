@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import supabase from "../supabaseClient";
 import Calendar from "./Calendar";
 import SignOut from "./SignOut";
+import ExpenditureTracker from "./ExpenditureTracker";
 
 const CalendarHandler: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
@@ -47,6 +48,7 @@ const CalendarHandler: React.FC = () => {
         <SignOut />
       </div>
       <Calendar userId={userId} meetings={meetings} />
+      <ExpenditureTracker />
     </div>
   );
 };

@@ -12,7 +12,13 @@ import PlacesAutocomplete from "./PlacesAutocomplete";
 import MapHandler from "./MapHandler";
 import supabase from '../supabaseClient';
 
-function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; }) {
+
+type listOfLocationsProps = {
+    name: string | undefined
+    address: string | undefined
+}
+
+function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; extractData: (arg0:listOfLocationsProps[]) => void;}) {
     const [selectedPlace, setSelectedPlace] =
         useState<google.maps.places.PlaceResult | null>(null);
     const [markerRef, marker] = useAdvancedMarkerRef();
@@ -42,13 +48,7 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
             alert("Please select the specific location");
         }
     };
-
-    type listOfLocationsProps = {
-        address: string | undefined
-        name: string | undefined
-        location: google.maps.LatLng | null
-    }
-
+    
     const [listOfLocations, setListOfLocations] = useState<listOfLocationsProps[]>([]);
 
     const addLocation = () => {
@@ -62,19 +62,19 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
             if (status === google.maps.places.PlacesServiceStatus.OK && place != null) {
                 setListOfLocations((listOfLocations) => [
                     ...listOfLocations,
-                    { address: place.formatted_address, name: place.name, location: selectedCoordinates },
+                    { address: place.formatted_address, name: place.name },
                 ]);
             }
         });
     }
 
 
-    const handleDeleteLocation = (e: google.maps.LatLng | null) => {
+    const handleDeleteLocation = (e: string | undefined) => {
         let removed = false;
         setListOfLocations(
             listOfLocations.filter(
                 item => {
-                    if (!removed && item.location === e) {
+                    if (!removed && item.name === e) {
                         removed = true;
                         return false;
                     }
@@ -84,14 +84,11 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
         )
     }
 
-    const addData = async () => {
-        const sendData = "hello"
-        setListOfLocations([]);
-        await supabase
-        .from('ChosenItinerary')
-        .insert({data : sendData})
-        .select()
+    const handleData = () =>  {
+        props.extractData(listOfLocations)
+        setListOfLocations([])
     }
+
 
     return (props.trigger) ? (
         <>
@@ -137,7 +134,7 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
                                         ______________________________________________________
                                         <p className="content">Name: {list.name}</p>
                                         <p className="content">Address: {list.address}</p>
-                                        <button className='button' onClick={() => handleDeleteLocation(list.location)}>Remove</button>
+                                        <button className='button' onClick={() => handleDeleteLocation(list.name)}>Remove</button>
                                     </div>
                                 );
                             })}
@@ -154,7 +151,7 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
                         borderRadius:'5px', 
                         margin: '10px', 
                         width: '120px',
-                        height:'25px'}} onClick={addData} type="submit">
+                        height:'25px'}} onClick={handleData} type="submit">
                         Add to Itinerary!
                     </button>
                 </div>

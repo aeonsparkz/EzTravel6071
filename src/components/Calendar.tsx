@@ -191,6 +191,8 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
         )}
         <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} />
       </div>
+      <div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,50 @@
+.tracker {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.inputquestions {
+    justify-content: space-evenly;
+    display:flex;
+    flex-direction:column;
+    padding: 30px;
+    border: 2.5px solid black;
+    width:20%;
+    height: 40vh;
+}
+
+.tracker_input-box {
+    border-radius: 10px;
+    border: 2.5px solid black;
+    margin: 10px 0;
+    width: 150px;
+    height: 50px;
+}
+
+.tracker_input-box::placeholder {
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+}
+
+.tracker_input-box .input {
+    font-size: 100px;
+}
+
+.results {
+    max-height: 40vh;
+    height:40vh;
+    width:20%;
+    display:flex;
+    flex-direction:column;
+    border: 2.5px solid black;
+}
+
+.totalexpense {
+    width:100%;
+    justify-content: bottom;
+    border:2px solid black;
+}
