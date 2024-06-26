@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import supabase from '../supabaseClient';
 import './WeeklySchedule.css';
 import Googlemaps from './Googlemaps';
-import Calendar from './Calendar';
+
 
 type Schedule = {
   id: string;
@@ -112,9 +112,6 @@ const WeeklySchedule: React.FC = () => {
           </div>
         ))}
       </div>
-    </div>
-    <div className="calendar">
-    <Calendar />
     </div>
     </>
   );
