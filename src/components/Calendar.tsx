@@ -195,4 +195,5 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
   );
 };
 
+
 export default Calendar;
