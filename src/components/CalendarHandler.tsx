@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../supabaseClient";
 import Calendar from "./Calendar";
+import SignOut from "./SignOut";
 
 const CalendarHandler: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
@@ -13,7 +14,6 @@ const CalendarHandler: React.FC = () => {
           throw error;
         }
         if (user) {
-          console.log('Fetched user:', user);
           setUserId(user.id);
         }
       } catch (error) {
@@ -29,12 +29,23 @@ const CalendarHandler: React.FC = () => {
   }
 
   const meetings = {
-    "2024-04-05": ["Drink Coffee", "Learn React", "Sleep"],
-    "2024-04-06": ["Drink Coffee", "Learn Angular", "Sleep"],
+    "2024-06-26": [
+      { time: "09:00", description: "Drink Coffee" },
+      { time: "10:00", description: "Learn React" },
+      { time: "12:00", description: "Lunch" }
+    ],
+    "2024-06-27": [
+      { time: "09:00", description: "Morning Jog" },
+      { time: "11:00", description: "Team Meeting" },
+      { time: "14:00", description: "Project Work" }
+    ]
   };
 
   return (
-    <div>
+    <div className="calendar-handler">
+      <div className="sign-out-button">
+        <SignOut />
+      </div>
       <Calendar userId={userId} meetings={meetings} />
     </div>
   );
