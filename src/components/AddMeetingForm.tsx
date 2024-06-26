@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 
 interface AddMeetingFormProps {
   userId: string;
-  onAddMeeting: (date: string, description: string) => void;
+  onAddMeeting: (date: string, time: string, description: string) => void;
 }
 
 const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting }) => {
   const [date, setDate] = useState<string>('');
+  const [time, setTime] = useState<string>('');
   const [description, setDescription] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddMeeting(date, description);
+    onAddMeeting(date, time, description);
     setDate('');
+    setTime('');
     setDescription('');
   };
 
@@ -25,6 +27,16 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
           id="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label htmlFor="time">Time:</label>
+        <input
+          type="time"
+          id="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
           required
         />
       </div>

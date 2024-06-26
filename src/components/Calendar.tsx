@@ -5,9 +5,14 @@ import classnames from "classnames";
 import AddMeetingForm from "./AddMeetingForm";
 import supabase from "../supabaseClient";
 
+interface Meeting {
+  time: string;
+  description: string;
+}
+
 interface CalendarProps {
   userId: string;
-  meetings: Record<string, string[]>;
+  meetings: Record<string, Meeting[]>;
 }
 
 const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }) => {
@@ -16,7 +21,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
   const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState<DateTime>(
     today.startOf("month")
   );
-  const [meetings, setMeetings] = useState<Record<string, string[]>>(initialMeetings);
+  const [meetings, setMeetings] = useState<Record<string, Meeting[]>>(initialMeetings);
 
   const fetchMeetings = async () => {
     try {
@@ -27,12 +32,14 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
       if (error) {
         throw error;
       }
-      console.log('Raw fetched data:', data);
-      const fetchedMeetings = data.reduce((acc: Record<string, string[]>, meeting) => {
-        acc[meeting.date] = meeting.meetings;
+      const fetchedMeetings = data.reduce((acc: Record<string, Meeting[]>, meeting) => {
+        const date = meeting.date;
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push({ time: meeting.time, description: meeting.meetings });
         return acc;
       }, {});
-      console.log('Processed fetched meetings:', fetchedMeetings);
       setMeetings(fetchedMeetings);
     } catch (error) {
       console.error("Error fetching meetings:", (error as Error).message);
@@ -41,72 +48,58 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
 
   useEffect(() => {
     fetchMeetings();
-
-    return () => {
-      
-    };
   }, [userId]);
 
-  const handleAddMeeting = async (date: string, description: string) => {
-    console.log('Adding meeting:', { date, description });
-  
+  const handleAddMeeting = async (date: string, time: string, description: string) => {
+    const newMeeting = { time, description };
     setMeetings((prevMeetings) => {
       const updatedMeetings = { ...prevMeetings };
       if (!updatedMeetings[date]) {
         updatedMeetings[date] = [];
       }
-      updatedMeetings[date].push(description);
+      updatedMeetings[date].push(newMeeting);
+      updatedMeetings[date].sort((a, b) => a.time.localeCompare(b.time)); // Sort meetings by time
       return updatedMeetings;
     });
-  
+
     try {
-      
       const { data: existingData, error: existingError } = await supabase
         .from("Plans")
         .select("*")
         .eq("user_id", userId)
-        .eq("date", date);
-  
-      console.log('Existing data:', existingData);
-  
+        .eq("date", date)
+        .eq("time", time);
+
       if (existingError) {
         throw existingError;
       }
-  
+
       if (existingData && existingData.length > 0) {
-        
-        const updatedMeetings = [...existingData[0].meetings, description];
-        const { data, error: updateError } = await supabase
+        const { error: updateError } = await supabase
           .from("Plans")
-          .update({ meetings: updatedMeetings })
+          .update({ meetings: description })
           .eq("user_id", userId)
-          .eq("date", date);
-  
-        console.log('Update result:', data);
-  
+          .eq("date", date)
+          .eq("time", time);
+
         if (updateError) {
           throw updateError;
         }
       } else {
-        
-        const { data, error: insertError } = await supabase
+        const { error: insertError } = await supabase
           .from("Plans")
-          .insert({ user_id: userId, date, meetings: [description] });
-  
-        console.log('Insert result:', data);
-  
+          .insert({ user_id: userId, date, time, meetings: description });
+
         if (insertError) {
           throw insertError;
         }
       }
-  
-      
+
       fetchMeetings();
     } catch (error) {
       console.error("Error adding or updating meeting:", (error as Error).message);
     }
   };
-  
 
   const activeDayMeetings = meetings[activeDay?.toISODate() ?? ""] ?? [];
   const weekDays = Info.weekdays("short");
@@ -182,17 +175,22 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
           ))}
         </div>
       </div>
-      <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} />
-      {activeDay && (
-        <div>
-          <h3>Meetings for {activeDay.toISODate()}:</h3>
-          <ul>
-            {activeDayMeetings.map((meeting, index) => (
-              <li key={index}>{meeting}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className="schedule">
+        <div className="schedule-headline">Meetings</div>
+        {activeDay && (
+          <div>
+            <h3>Meetings for {activeDay.toISODate()}:</h3>
+            <ul>
+              {activeDayMeetings.map((meeting, index) => (
+                <li key={index}>
+                  {meeting.time} - {meeting.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} />
+      </div>
     </div>
   );
 };

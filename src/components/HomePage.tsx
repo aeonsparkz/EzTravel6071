@@ -10,7 +10,7 @@ function HomePage() {
                     <p>
                         Ready to plan your next trip?
                     </p>
-                    <a href="/CreateItinerary">Start Now</a>
+                    <a href="/CalendarHandler">Start Now</a>
                 </div>
             </div>
         </div>
