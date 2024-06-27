@@ -26,7 +26,7 @@
 }
 
 .Homepage_content h1 {
-    font-size: 180px;
+    font-size: 90px;
     font-weight: bolder;
     color: white;
 }
@@ -47,4 +47,5 @@
     border-radius: 5px;
     padding: 10px;
     z-index: 1000;
+    margin-top: 30px;
 }

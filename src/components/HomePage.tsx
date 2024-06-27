@@ -1,15 +1,16 @@
 import "./HomePage.css";
+import Navbar from "./Navbar";
 
 function HomePage() {
     return (
         <div>
+            <Navbar />
             <div className="Homepage">
                 <div className="Homepage_content">
-                    <h1>EzTravel</h1>
-                    <p>
+                    <h1>
                         Ready to plan your next trip?
-                    </p>
-                    <a href="/CreateItinerary">Lets GO</a>
+                    </h1>
+                    <a href="/CreateItinerary">Lets Go</a>
                 </div>
             </div>
         </div>

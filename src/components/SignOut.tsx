@@ -15,7 +15,15 @@ const SignOut: React.FC = () => {
     }
   };
 
-  return <button onClick={handleSignOut}>Sign Out</button>;
+  return <button onClick={handleSignOut}
+  style={{
+    width:'100px',
+    height:'40px',
+    borderRadius: '10px',
+    fontSize: '17px',
+    color: 'black',
+    fontWeight:'bold'
+  }}>Sign Out</button>;
 };
 
 export default SignOut;

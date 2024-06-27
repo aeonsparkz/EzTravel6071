@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../supabaseClient";
 import Calendar from "./Calendar";
-import SignOut from "./SignOut";
 import { useLocation } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const CalendarHandler: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
@@ -45,11 +45,11 @@ const CalendarHandler: React.FC = () => {
   };
 
   return (
+    <div>
+      <Navbar />
     <div className="calendar-handler">
-      <div className="sign-out-button">
-        <SignOut />
-      </div>
       <Calendar userId={userId} meetings={meetings} state={state}/>
+    </div>
     </div>
   );
 };

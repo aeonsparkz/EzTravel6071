@@ -1,0 +1,44 @@
+.navbar {
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    transition: top 0.3s;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+}
+
+.navbar_container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    margin: 130px;
+}
+
+.navbar_container ul li {
+    margin:40px;
+    font-size:25px;
+    text-decoration: none;
+    margin-right: 50px;
+}
+
+.navbar_container ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+}
+
+.navbar h1 {
+    font-size: 50px;
+    margin: 70px;
+}
+
+
+.signout_button {
+    margin-left: 40px;
+}

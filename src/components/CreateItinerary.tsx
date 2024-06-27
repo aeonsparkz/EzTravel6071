@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./CreateItinerary.css";
+import Navbar from "./Navbar";
 
 function CreateItinerary() {
 
@@ -32,6 +33,7 @@ function CreateItinerary() {
 
     return (
         <div>
+            <Navbar />
             <div className="tripinput">
                 <div className="tripinput_container">
                     <h1>KEY IN THE TITLE AND START/END DATES OF YOUR TRIP</h1>
