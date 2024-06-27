@@ -153,6 +153,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
   };
 
   return (
+  <div className="calendar_background">
     <div className="calendar-container">
       <div className="calendar">
         <div className="calendar-headline">
@@ -222,6 +223,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
         )}
         <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} />
       </div>
+    </div>
     </div>
   );
 };
