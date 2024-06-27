@@ -1,5 +1,3 @@
-// PlaceAutocomplete.tsx
-
 import { useState, useEffect, useRef } from 'react';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import "./Googlemaps.css";

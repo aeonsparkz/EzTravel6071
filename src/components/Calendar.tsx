@@ -1,5 +1,3 @@
-// Calendar.tsx
-
 import React, { useState, useEffect } from "react";
 import "./Calendar.css";
 import { Info, DateTime, Interval } from "luxon";

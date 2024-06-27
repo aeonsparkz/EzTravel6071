@@ -1,5 +1,3 @@
-// AddMeetingForm.tsx
-
 import React, { useState, useEffect } from 'react';
 import Googlemaps from './Googlemaps';
 import "./AddMeetingForm.css";
@@ -7,7 +5,7 @@ import "./AddMeetingForm.css";
 interface AddMeetingFormProps {
   userId: string;
   onAddMeeting: (date: string, time: string, description: string) => void;
-  date?: string; // Make date optional
+  date?: string;
 }
 
 const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting, date: initialDate }) => {

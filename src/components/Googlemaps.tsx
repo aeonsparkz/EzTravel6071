@@ -1,5 +1,3 @@
-// Googlemaps.tsx
-
 import { useState } from "react";
 import {
     Map,
@@ -69,7 +67,7 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
         if (location) {
             props.extractData([location]);
             setLocation(null);
-            props.setTrigger(false); // Close the popup after updating the location
+            props.setTrigger(false);
         }
     }
 
