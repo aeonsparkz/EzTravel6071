@@ -15,19 +15,23 @@ function ExpenditureTracker() {
 
     const sumExpense = () => {
         const additionalCost = parseInt(cost, 10)
-        setTaskExpense([
-            ...taskExpense,
-            { expense: additionalCost, task: task }
-        ])
-        setTotalExpense(additionalCost + totalExpense);
-        setTask('')
-        setCost('');
+        if (!isNaN(additionalCost)) {
+            setTaskExpense([
+                ...taskExpense,
+                { expense: additionalCost, task: task }
+            ])
+            setTotalExpense(additionalCost + totalExpense);
+            setTask('')
+            setCost('');
+        } else {
+            alert("Please set a valid amount")
+        }
     }
 
     return (
         <>
             <div className="header">
-                <h1>Expenditure Tracker</h1>
+                <h2>Expenditure Tracker</h2>
             </div>
             <div className="tracker">
                 <div className="inputquestions">
@@ -41,19 +45,22 @@ function ExpenditureTracker() {
                     <input className="tracker_input-box"
                         type="text"
                         value={task}
-                        onChange={(e) => setTask(e.target.value)}
+                        onChange={(input) => setTask(input.target.value)}
                         placeholder="Enter Task">
                     </input>
                     <button onClick={sumExpense}>Add Expense</button>
                 </div>
                 <div className="results">
                     {taskExpense.map((result, index) => (
-                        <p>Task: {result.task}, cost: {result.expense}</p>
+                        <div>
+                        <p>Activity: {result.task}</p>
+                        <p>Cost: {result.expense}</p>
+                        </div>
                     ))}
-                    <div className="totalexpense">
+                <div className="totalexpense">
                     <p>Total Expense: {totalExpense}</p>
-                    </div>
                 </div>
+            </div>
             </div>
         </>
     )
