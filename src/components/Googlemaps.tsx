@@ -10,22 +10,20 @@ import {
 import "./Googlemaps.css";
 import PlacesAutocomplete from "./PlacesAutocomplete";
 import MapHandler from "./MapHandler";
-import supabase from '../supabaseClient';
-
 
 type listOfLocationsProps = {
-    name: string | undefined
-    address: string | undefined
+    name: string | undefined;
+    address: string | undefined;
 }
 
-function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; extractData: (arg0:listOfLocationsProps[]) => void;}) {
+function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; extractData: (arg0: listOfLocationsProps[]) => void; }) {
     const [selectedPlace, setSelectedPlace] =
         useState<google.maps.places.PlaceResult | null>(null);
     const [markerRef, marker] = useAdvancedMarkerRef();
     const [placeId, setSelectedPlaceId] = useState("");
     const [selectedCoordinates, setSelectedCoordinates] = useState<google.maps.LatLng | null>(null);
-    
-    const handleMapClick = (mapProps : {
+
+    const handleMapClick = (mapProps: {
         type?: string;
         map?: google.maps.Map;
         detail: any;
@@ -48,8 +46,8 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
             alert("Please select the specific location");
         }
     };
-    
-    const [listOfLocations, setListOfLocations] = useState<listOfLocationsProps[]>([]);
+
+    const [location, setLocation] = useState<listOfLocationsProps | null>(null);
 
     const addLocation = () => {
         const service = new window.google.maps.places.PlacesService(document.createElement('div'))
@@ -60,35 +58,18 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
 
         service.getDetails(request, (place, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK && place != null) {
-                setListOfLocations((listOfLocations) => [
-                    ...listOfLocations,
-                    { address: place.formatted_address, name: place.name },
-                ]);
+                setLocation({ address: place.formatted_address, name: place.name });
             }
         });
     }
 
-
-    const handleDeleteLocation = (e: string | undefined) => {
-        let removed = false;
-        setListOfLocations(
-            listOfLocations.filter(
-                item => {
-                    if (!removed && item.name === e) {
-                        removed = true;
-                        return false;
-                    }
-                    return true;
-                }
-            )
-        )
+    const handleData = () => {
+        if (location) {
+            props.extractData([location]);
+            setLocation(null);
+            props.setTrigger(false);
+        }
     }
-
-    const handleData = () =>  {
-        props.extractData(listOfLocations)
-        setListOfLocations([])
-    }
-
 
     return (props.trigger) ? (
         <>
@@ -116,7 +97,7 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
                         <MapControl position={ControlPosition.TOP_CENTER}>
                             <div className="autocomplete-control" style={{ display: 'grid' }}>
                                 <PlacesAutocomplete onPlaceSelect={setSelectedPlace} />
-                                <button onClick={addLocation} style={{ width: '100%' }}>
+                                <button type="button" onClick={addLocation} style={{ width: '100%' }}>
                                     Add this location
                                 </button>
                             </div>
@@ -127,38 +108,35 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
                 <div className="list_header">
                     <h3>Click on the location you wish to add</h3>
                 <div className="list_container">
-                    {listOfLocations.length > 0 ? (
+                    {location ? (
                         <div>
-                            <p className="list_heading">List of Selected Locations</p>
-                            {listOfLocations.map((list) => {
-                                return (
-                                    <div className="list_items">
-                                        ______________________________________________________
-                                        <p className="content">Name: {list.name}</p>
-                                        <p className="content">Address: {list.address}</p>
-                                        <button className='button' onClick={() => handleDeleteLocation(list.name)}>Remove</button>
-                                    </div>
-                                );
-                            })}
+                            <p className="list_heading">Selected Location</p>
+                            <div className="list_items">
+                                ______________________________________________________
+                                <p className="content">Name: {location.name}</p>
+                                <p className="content">Address: {location.address}</p>
+                            </div>
                         </div>
                     ) : (
                         <div>
                             <p className="list_heading">
-                                List Of Selected Locations:
+                                No Location Selected
                             </p>
                         </div>
                     )}
-                    <button style={{backgroundColor:'blue', 
-                        color:'white', 
-                        borderRadius:'5px', 
-                        margin: '10px', 
+                    <button style={{
+                        backgroundColor: 'blue',
+                        color: 'white',
+                        borderRadius: '5px',
+                        margin: '10px',
                         width: '120px',
-                        height:'25px'}} onClick={handleData} type="submit">
+                        height: '25px'
+                    }} onClick={handleData} type="button">
                         Add to Itinerary!
                     </button>
                 </div>
                 <div className="close-popup">
-                <button onClick={() => props.setTrigger(false)}>Close</button>
+                <button type="button" onClick={() => props.setTrigger(false)}>Close</button>
                 </div>
                 </div>
             </div>

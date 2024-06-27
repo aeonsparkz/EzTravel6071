@@ -21,7 +21,7 @@ body, html {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
   background-color: #f9f9f9;
   background: rgba(255, 255, 255, 0.95);
 }
@@ -49,6 +49,17 @@ body, html {
   font-size: 1.2em;
   font-weight: 600;
   color: #333;
+}
+
+.calendar-headline-month {
+  display: flex;
+  align-items: center;
+}
+
+.calendar-headline-month select {
+  margin-right: 10px;
+  padding: 5px;
+  font-size: 1em;
 }
 
 .calendar-headline-controls {
@@ -93,7 +104,7 @@ body, html {
 
 .calendar-grid-cell {
   padding: 20px;
-  min-height: 129px;
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,6 +119,11 @@ body, html {
 }
 
 .calendar-grid-cell-active, .calendar-grid-cell:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.calendar-grid-cell-highlight {
   background-color: #007bff;
   color: white;
 }
@@ -134,7 +150,7 @@ body, html {
   padding: 10px 20px;
   background-color: #f8f9fa;
   color: rgb(10, 10, 10);
-  border: none;
+  border: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
 }

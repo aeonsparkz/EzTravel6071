@@ -1,5 +1,3 @@
-// Calendar.tsx
-
 import React, { useState, useEffect } from "react";
 import "./Calendar.css";
 import { Info, DateTime, Interval } from "luxon";
@@ -29,6 +27,10 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
     today.startOf("month")
   );
   const [meetings, setMeetings] = useState<Record<string, Meeting[]>>(initialMeetings);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+  const [selectedMonth, setSelectedMonth] = useState<number>(today.month);
+  const [selectedYear, setSelectedYear] = useState<number>(today.year);
 
   const fetchMeetings = async () => {
     try {
@@ -56,6 +58,10 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
   useEffect(() => {
     fetchMeetings();
   }, [userId]);
+
+  useEffect(() => {
+    setFirstDayOfActiveMonth(DateTime.fromObject({ year: selectedYear, month: selectedMonth }).startOf("month"));
+  }, [selectedMonth, selectedYear]);
 
   const handleAddMeeting = async (date: string, time: string, description: string) => {
     const newMeeting = { time, description };
@@ -146,24 +152,52 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
     .map((day) => day.start as DateTime);
 
   const goToPreviousMonth = () => {
-    setFirstDayOfActiveMonth(firstDayOfActiveMonth.minus({ month: 1 }));
+    const newDate = firstDayOfActiveMonth.minus({ month: 1 });
+    setSelectedMonth(newDate.month);
+    setSelectedYear(newDate.year);
   };
 
   const goToNextMonth = () => {
-    setFirstDayOfActiveMonth(firstDayOfActiveMonth.plus({ month: 1 }));
+    const newDate = firstDayOfActiveMonth.plus({ month: 1 });
+    setSelectedMonth(newDate.month);
+    setSelectedYear(newDate.year);
   };
 
   const goToToday = () => {
-    setFirstDayOfActiveMonth(today.startOf("month"));
+    const newDate = today.startOf("month");
+    setSelectedMonth(newDate.month);
+    setSelectedYear(newDate.year);
+  };
+
+  const toggleUpdating = () => {
+    setIsUpdating(!isUpdating);
   };
 
   return (
-  <div className="calendar_background">
     <div className="calendar-container">
       <div className="calendar">
         <div className="calendar-headline">
           <div className="calendar-headline-month">
-            {firstDayOfActiveMonth.monthShort}, {firstDayOfActiveMonth.year}
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(Number(e.target.value))}
+            >
+              {Info.months().map((month, index) => (
+                <option key={index} value={index + 1}>
+                  {month}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(Number(e.target.value))}
+            >
+              {Array.from({ length: 10 }, (_, i) => today.year - 5 + i).map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="calendar-headline-controls">
             <div
@@ -194,21 +228,25 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
           ))}
         </div>
         <div className="calendar-grid">
-          {daysOfMonth.map((dayOfMonth, dayOfMonthIndex) => (
-            <div
-              key={dayOfMonthIndex}
-              className={classnames({
-                "calendar-grid-cell": true,
-                "calendar-grid-cell-inactive":
-                  dayOfMonth.month !== firstDayOfActiveMonth.month,
-                "calendar-grid-cell-active":
-                  activeDay?.toISODate() === dayOfMonth.toISODate(),
-              })}
-              onClick={() => setActiveDay(dayOfMonth)}
-            >
-              {dayOfMonth.day}
-            </div>
-          ))}
+          {daysOfMonth.map((dayOfMonth, dayOfMonthIndex) => {
+            const isoDate = dayOfMonth.toISODate();
+            return (
+              <div
+                key={dayOfMonthIndex}
+                className={classnames({
+                  "calendar-grid-cell": true,
+                  "calendar-grid-cell-inactive":
+                    dayOfMonth.month !== firstDayOfActiveMonth.month,
+                  "calendar-grid-cell-active":
+                    activeDay?.toISODate() === dayOfMonth.toISODate(),
+                  "calendar-grid-cell-highlight": isoDate && meetings[isoDate]?.length > 0,
+                })}
+                onClick={() => setActiveDay(dayOfMonth)}
+              >
+                {dayOfMonth.day}
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="schedule">
@@ -222,15 +260,21 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
               {activeDayMeetings.map((meeting, index) => (
                 <li key={index}>
                   {meeting.time} - {meeting.description}
-                  <button onClick={() => handleDeleteMeeting(activeDay.toISODate()!, meeting.time)}>Delete</button>
+                  {isUpdating && (
+                    <button onClick={() => handleDeleteMeeting(activeDay.toISODate()!, meeting.time)}>Delete</button>
+                  )}
                 </li>
               ))}
             </ul>
+            <button onClick={toggleUpdating}>
+              {isUpdating ? "Finish Updating" : "Update"}
+            </button>
+            {isUpdating && activeDay && (
+              <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} date={activeDay.toISODate() || undefined} />
+            )}
           </div>
         )}
-        <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} />
       </div>
-    </div>
     </div>
   );
 };
