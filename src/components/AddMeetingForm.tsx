@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+// AddMeetingForm.tsx
+
+import React, { useState } from 'react';
 import Googlemaps from './Googlemaps';
 import "./AddMeetingForm.css";
 import ExpenditureTracker from "./ExpenditureTracker";
@@ -7,7 +9,6 @@ interface AddMeetingFormProps {
   userId: string;
   onAddMeeting: (date: string, time: string, description: string) => void;
 }
-
 
 const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting }) => {
   const [date, setDate] = useState<string>('');
