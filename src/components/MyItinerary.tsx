@@ -1,49 +1,98 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MyItinerary.css";
 import Navbar from "./Navbar";
+import supabase from "../supabaseClient";
 
-type cardsProps = {
-    title: string;
-    content: string;
-}
+type Itinerary = {
+  id: number;
+  name: string;
+  start_date: string;
+  end_date: string;
+};
 
-function MyItinerary() {
+const MyItinerary: React.FC = () => {
+  const [itineraries, setItineraries] = useState<Itinerary[]>([]);
+  const [userId, setUserId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-    const [cards, setCards] = useState<cardsProps[]>([
-        { title: 'Trip to Japan', content: '08/06/2024 - 15/06/2024' },
-        { title: 'Trip to Japan', content: '08/06/2024 - 15/06/2024' }
-    ]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user) {
+        setUserId(data.user.id);
+      } else {
+        console.error('User not logged in');
+      }
+    };
 
-    return (
-        <div>
-            <div className="itinerary_background">
-                <Navbar />
-                <div className="setItinerary">
-                    <h1>My Itineraries</h1>
-                    <div className="card_container">
-                        {cards.map((card, index) => (
-                            <Card key={index} title={card.title} content={card.content} />
-                        ))}
-                    </div>
-                </div>
-            </div>
+    fetchUser();
+  }, []);
+
+  useEffect(() => {
+    const fetchItineraries = async () => {
+      if (userId) {
+        try {
+          const { data, error } = await supabase
+            .from('Itinerary')
+            .select('*')
+            .eq('user_id', userId);
+
+          if (error) {
+            throw error;
+          }
+
+          setItineraries(data);
+        } catch (error) {
+          console.error('Error fetching itineraries:', error);
+        }
+      }
+    };
+
+    fetchItineraries();
+  }, [userId]);
+
+  const handleCardClick = (itinerary: Itinerary) => {
+    const startMonth = new Date(itinerary.start_date).getMonth() + 1;
+    const startYear = new Date(itinerary.start_date).getFullYear();
+    navigate(`/CalendarHandler?userId=${userId}&month=${startMonth}&year=${startYear}`, { state: itinerary });
+  };
+
+  return (
+    <div>
+      <div className="itinerary_background">
+        <Navbar />
+        <div className="setItinerary">
+          <h1>My Itineraries</h1>
+          <div className="card_container">
+            {itineraries.map((itinerary) => (
+              <Card
+                key={itinerary.id}
+                itinerary={itinerary}
+                onClick={() => handleCardClick(itinerary)}
+              />
+            ))}
+          </div>
         </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
 
-const handleCardClick = (title: string) => {
-    alert(`Clicked on ${title}`);
-}
+type CardProps = {
+  itinerary: Itinerary;
+  onClick: () => void;
+};
 
-function Card({ title, content }: cardsProps) {
-    return (
-        <div className="card-container">
-            <div className="card" onClick={() => handleCardClick(title)}>
-                <h2>{title}</h2>
-                <p>{content}</p>
-            </div>
-        </div>
-    );
-}
+const Card: React.FC<CardProps> = ({ itinerary, onClick }) => {
+  return (
+    <div className="card-container">
+      <div className="card" onClick={onClick}>
+        <h2>{itinerary.name}</h2>
+        <p>{itinerary.start_date} - {itinerary.end_date}</p>
+      </div>
+    </div>
+  );
+};
 
 export default MyItinerary;

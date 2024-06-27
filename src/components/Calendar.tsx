@@ -15,9 +15,9 @@ interface CalendarProps {
   meetings: Record<string, Meeting[]>;
   state: {
     name: string;
-    startDate: string;
-    endDate: string;
-  }
+    start_date: string;
+    end_date: string;
+  };
 }
 
 const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, state }) => {
@@ -253,7 +253,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
         <div className="schedule">
           <div className="schedule-headline">
             <p>{state.name}</p>
-            <p>{state.startDate} to {state.endDate}</p>
+            <p>{state.start_date} to {state.end_date}</p>
           </div>
           {activeDay && (
             <div>
