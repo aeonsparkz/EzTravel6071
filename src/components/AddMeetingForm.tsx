@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+// AddMeetingForm.tsx
+
+import React, { useState } from 'react';
 import Googlemaps from './Googlemaps';
 
 interface AddMeetingFormProps {
   userId: string;
   onAddMeeting: (date: string, time: string, description: string) => void;
 }
-
 
 const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting }) => {
   const [date, setDate] = useState<string>('');
@@ -25,7 +26,6 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
     name: string | undefined;
     address: string | undefined;
   }
-
 
   const [mapOutput, setMapOutput] = useState<mapOutputProps[]>([]);
   const handleMapOutput = (props: mapOutputProps[]) => {
@@ -67,19 +67,16 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
         />
       </div>
       <div>
-        <button onClick={() => setPopUp(true)}>Add Location</button>
+        <button type="button" onClick={() => setPopUp(true)}>Add Location</button>
         <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
       </div>
-      {mapOutput.map((list) => {
-        return (
-          <div className="list_items">
-            ______________________________________________________
-            <p className="content">Name: {list.name}</p>
-            <p className="content">Address: {list.address}</p>
-          </div>
-        )
-      }
-      )}
+      {mapOutput.map((list, index) => (
+        <div key={index} className="list_items">
+          ______________________________________________________
+          <p className="content">Name: {list.name}</p>
+          <p className="content">Address: {list.address}</p>
+        </div>
+      ))}
       <button type="submit">Add Meeting</button>
     </form>
   );

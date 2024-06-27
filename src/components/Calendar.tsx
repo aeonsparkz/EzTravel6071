@@ -1,3 +1,5 @@
+// Calendar.tsx
+
 import React, { useState, useEffect } from "react";
 import "./Calendar.css";
 import { Info, DateTime, Interval } from "luxon";
@@ -101,6 +103,34 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
     }
   };
 
+  const handleDeleteMeeting = async (date: string, time: string) => {
+    setMeetings((prevMeetings) => {
+      const updatedMeetings = { ...prevMeetings };
+      updatedMeetings[date] = updatedMeetings[date].filter((meeting) => meeting.time !== time);
+      if (updatedMeetings[date].length === 0) {
+        delete updatedMeetings[date];
+      }
+      return updatedMeetings;
+    });
+
+    try {
+      const { error } = await supabase
+        .from("Plans")
+        .delete()
+        .eq("user_id", userId)
+        .eq("date", date)
+        .eq("time", time);
+
+      if (error) {
+        throw error;
+      }
+
+      fetchMeetings();
+    } catch (error) {
+      console.error("Error deleting meeting:", (error as Error).message);
+    }
+  };
+
   const activeDayMeetings = meetings[activeDay?.toISODate() ?? ""] ?? [];
   const weekDays = Info.weekdays("short");
   const daysOfMonth = Interval.fromDateTimes(
@@ -184,6 +214,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
               {activeDayMeetings.map((meeting, index) => (
                 <li key={index}>
                   {meeting.time} - {meeting.description}
+                  <button onClick={() => handleDeleteMeeting(activeDay.toISODate()!, meeting.time)}>Delete</button>
                 </li>
               ))}
             </ul>
@@ -191,11 +222,8 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
         )}
         <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} />
       </div>
-      <div>
-      </div>
     </div>
   );
 };
-
 
 export default Calendar;
