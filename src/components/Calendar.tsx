@@ -13,7 +13,7 @@ interface Meeting {
 interface CalendarProps {
   userId: string;
   meetings: Record<string, Meeting[]>;
-  state : {
+  state: {
     name: string;
     startDate: string;
     endDate: string;
@@ -174,106 +174,109 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
   };
 
   return (
-    <div className="calendar-container">
-      <div className="calendar">
-        <div className="calendar-headline">
-          <div className="calendar-headline-month">
-            <select
-              value={selectedMonth}
-              onChange={(e) => setSelectedMonth(Number(e.target.value))}
-            >
-              {Info.months().map((month, index) => (
-                <option key={index} value={index + 1}>
-                  {month}
-                </option>
-              ))}
-            </select>
-            <select
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(Number(e.target.value))}
-            >
-              {Array.from({ length: 10 }, (_, i) => today.year - 5 + i).map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="calendar-headline-controls">
-            <div
-              className="calendar-headline-control"
-              onClick={goToPreviousMonth}
-            >
-              «
-            </div>
-            <div
-              className="calendar-headline-control calendar-headline-controls-today"
-              onClick={goToToday}
-            >
-              Today
-            </div>
-            <div
-              className="calendar-headline-control"
-              onClick={goToNextMonth}
-            >
-              »
-            </div>
-          </div>
-        </div>
-        <div className="calendar-weeks-grid">
-          {weekDays.map((weekDay, weekDayIndex) => (
-            <div key={weekDayIndex} className="calendar-weeks-grid-cell">
-              {weekDay}
-            </div>
-          ))}
-        </div>
-        <div className="calendar-grid">
-          {daysOfMonth.map((dayOfMonth, dayOfMonthIndex) => {
-            const isoDate = dayOfMonth.toISODate();
-            return (
-              <div
-                key={dayOfMonthIndex}
-                className={classnames({
-                  "calendar-grid-cell": true,
-                  "calendar-grid-cell-inactive":
-                    dayOfMonth.month !== firstDayOfActiveMonth.month,
-                  "calendar-grid-cell-active":
-                    activeDay?.toISODate() === dayOfMonth.toISODate(),
-                  "calendar-grid-cell-highlight": isoDate && meetings[isoDate]?.length > 0,
-                })}
-                onClick={() => setActiveDay(dayOfMonth)}
+    <div className="calendar_background">
+      <div className="calendar-container">
+        <div className="calendar">
+          <div className="calendar-headline">
+            <div className="calendar-headline-month">
+              <select
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(Number(e.target.value))}
               >
-                {dayOfMonth.day}
+                {Info.months().map((month, index) => (
+                  <option key={index} value={index + 1}>
+                    {month}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(Number(e.target.value))}
+              >
+                {Array.from({ length: 10 }, (_, i) => today.year - 5 + i).map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="calendar-headline-controls">
+              <div
+                className="calendar-headline-control"
+                onClick={goToPreviousMonth}
+              >
+                «
               </div>
-            );
-          })}
-        </div>
-      </div>
-      <div className="schedule">
-        <div className="schedule-headline">Meetings</div>
-        <p>{state.name}</p>
-        <p>{state.startDate} to {state.endDate}</p>
-        {activeDay && (
-          <div>
-            <h3>Meetings for {activeDay.toISODate()}:</h3>
-            <ul>
-              {activeDayMeetings.map((meeting, index) => (
-                <li key={index}>
-                  {meeting.time} - {meeting.description}
-                  {isUpdating && (
-                    <button onClick={() => handleDeleteMeeting(activeDay.toISODate()!, meeting.time)}>Delete</button>
-                  )}
-                </li>
-              ))}
-            </ul>
-            <button onClick={toggleUpdating}>
-              {isUpdating ? "Finish Updating" : "Update"}
-            </button>
-            {isUpdating && activeDay && (
-              <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} date={activeDay.toISODate() || undefined} />
-            )}
+              <div
+                className="calendar-headline-control calendar-headline-controls-today"
+                onClick={goToToday}
+              >
+                Today
+              </div>
+              <div
+                className="calendar-headline-control"
+                onClick={goToNextMonth}
+              >
+                »
+              </div>
+            </div>
           </div>
-        )}
+          <div className="calendar-weeks-grid">
+            {weekDays.map((weekDay, weekDayIndex) => (
+              <div key={weekDayIndex} className="calendar-weeks-grid-cell">
+                {weekDay}
+              </div>
+            ))}
+          </div>
+          <div className="calendar-grid">
+            {daysOfMonth.map((dayOfMonth, dayOfMonthIndex) => {
+              const isoDate = dayOfMonth.toISODate();
+              return (
+                <div
+                  key={dayOfMonthIndex}
+                  className={classnames({
+                    "calendar-grid-cell": true,
+                    "calendar-grid-cell-inactive":
+                      dayOfMonth.month !== firstDayOfActiveMonth.month,
+                    "calendar-grid-cell-active":
+                      activeDay?.toISODate() === dayOfMonth.toISODate(),
+                    "calendar-grid-cell-highlight": isoDate && meetings[isoDate]?.length > 0,
+                  })}
+                  onClick={() => setActiveDay(dayOfMonth)}
+                >
+                  {dayOfMonth.day}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="schedule">
+          <div className="schedule-headline">
+            <p>{state.name}</p>
+            <p>{state.startDate} to {state.endDate}</p>
+          </div>
+          {activeDay && (
+            <div>
+              <h3>Activities for {activeDay.toISODate()}:</h3>
+              <ul>
+                {activeDayMeetings.map((meeting, index) => (
+                  <li key={index}>
+                    {meeting.time} - {meeting.description}
+                    {isUpdating && (
+                      <button onClick={() => handleDeleteMeeting(activeDay.toISODate()!, meeting.time)}>Delete</button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+              <button onClick={toggleUpdating}>
+                {isUpdating ? "Finish Updating" : "Update"}
+              </button>
+              {isUpdating && activeDay && (
+                <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} date={activeDay.toISODate() || undefined} />
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
