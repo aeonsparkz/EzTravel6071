@@ -15,9 +15,14 @@ interface Meeting {
 interface CalendarProps {
   userId: string;
   meetings: Record<string, Meeting[]>;
+  state : {
+    name: string;
+    startDate: string;
+    endDate: string;
+  }
 }
 
-const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }) => {
+const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, state }) => {
   const today = DateTime.local();
   const [activeDay, setActiveDay] = useState<DateTime | null>(null);
   const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState<DateTime>(
@@ -208,6 +213,8 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings }
       </div>
       <div className="schedule">
         <div className="schedule-headline">Meetings</div>
+        <p>{state.name}</p>
+        <p>{state.startDate} to {state.endDate}</p>
         {activeDay && (
           <div>
             <h3>Meetings for {activeDay.toISODate()}:</h3>

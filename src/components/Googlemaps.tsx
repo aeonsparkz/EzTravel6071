@@ -124,6 +124,8 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
                         <MapHandler place={selectedPlace} marker={marker} />
                     </div>
                 </APIProvider>
+                <div className="list_header">
+                    <h3>Click on the location you wish to add</h3>
                 <div className="list_container">
                     {listOfLocations.length > 0 ? (
                         <div>
@@ -157,6 +159,7 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
                 </div>
                 <div className="close-popup">
                 <button onClick={() => props.setTrigger(false)}>Close</button>
+                </div>
                 </div>
             </div>
             </div>

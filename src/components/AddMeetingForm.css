@@ -9,6 +9,10 @@
     padding: 10px;
 }
 
+.planning .setDetails_header {
+    margin-top: 10px;  
+}
+
 .planning .setDetails_description input {
     width: 520px;
     height: 30px;

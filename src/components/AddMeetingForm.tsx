@@ -37,6 +37,14 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
     if (string1 !== undefined && string2 !== undefined) {
       setPlaceName(string1)
       setPlaceAddress(string2)
+      let removed = false;
+      setMapOutput(mapOutput.filter(item => {
+        if (!removed && item.name === string1) {
+          removed = true;
+          return false;
+        }
+        return true;
+      }))
     }
   }
 
@@ -46,7 +54,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
       mapOutput.concat(props)
     )
   }
-
+  
   return (
     <form onSubmit={handleSubmit} className="add-meeting-form">
       <div className="planning">
@@ -81,6 +89,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
               required
             />
           </div>
+          <p className="setDetails_header">Location</p>
           <div className="setDetails_location">
             <label htmlFor="description">Name: </label>
             <p id="placeName">{placeName}</p>
@@ -91,23 +100,24 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
             <button className="Buttons" onClick={() => setPopUp(true)}>Add Location</button>
             <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
           </div>
-          </div>
-          <div className="locationschosen">
-            {mapOutput.map((list: mapOutputProps) => {
-              return (
-                <div className="locations">
-                  ___________________________________________________
-                  <p className="content">Name: {list.name}</p>
-                  <p className="content">Address: {list.address}</p>
-                  <button onClick={() => handleDescription(list.name, list.address)}>Add To Description</button>
-                </div>
-              )
-            }
-            )}
-          </div>
-          <button className="Buttons" type="submit">Add Meeting</button>
         </div>
-        <ExpenditureTracker />
+        <div className="locationschosen">
+          <p className="setDetails_header">List of Selected Locations</p>
+          {mapOutput.map((list: mapOutputProps) => {
+            return (
+              <div className="locations">
+                ___________________________________________________
+                <p className="content">Name: {list.name}</p>
+                <p className="content">Address: {list.address}</p>
+                <button onClick={() => handleDescription(list.name, list.address)}>Add To Location</button>
+              </div>
+            )
+          }
+          )}
+        </div>
+        <button className="Buttons" type="submit">Add Meeting</button>
+      </div>
+      <ExpenditureTracker />
     </form>
   );
 }

@@ -1,0 +1,40 @@
+.tripinput {
+    background-image: url("./image/image.jpg");
+    background-size: cover; 
+    width: 100%;
+    height: 100vh;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tripinput_container {
+    color: #333;
+    width: 350px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2.5px solid white;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    border-radius: 40px;
+    font-weight: bold;
+}
+
+.tripinput_container h1 {
+    font-size: 20px;
+}
+
+.tripinput_container label {
+    margin: 5px;
+}
+
+.tripinput_container input {
+    margin: 10px;
+    width: 250px;
+    height:25px;
+}

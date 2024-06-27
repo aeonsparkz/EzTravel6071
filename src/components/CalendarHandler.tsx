@@ -4,9 +4,12 @@ import React, { useState, useEffect } from "react";
 import supabase from "../supabaseClient";
 import Calendar from "./Calendar";
 import SignOut from "./SignOut";
+import { useLocation } from "react-router-dom";
 
 const CalendarHandler: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
+  const location = useLocation();
+  const { state } = location;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -48,7 +51,7 @@ const CalendarHandler: React.FC = () => {
       <div className="sign-out-button">
         <SignOut />
       </div>
-      <Calendar userId={userId} meetings={meetings} />
+      <Calendar userId={userId} meetings={meetings} state={state}/>
     </div>
   );
 };
