@@ -1,3 +1,5 @@
+/* Calendar.css */
+
 body, html {
   margin: 0;
   padding: 0;
@@ -5,6 +7,7 @@ body, html {
   height: 100%;
   font-family: Arial, sans-serif;
 }
+
 .calendar_background {
   padding: 40px;  
   display: flex;
@@ -22,7 +25,7 @@ body, html {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 70vh;
+  height: 80vh;
   background-color: #f9f9f9;
 }
 
@@ -49,6 +52,17 @@ body, html {
   font-size: 1.2em;
   font-weight: 600;
   color: #333;
+}
+
+.calendar-headline-month {
+  display: flex;
+  align-items: center;
+}
+
+.calendar-headline-month select {
+  margin-right: 10px;
+  padding: 5px;
+  font-size: 1em;
 }
 
 .calendar-headline-controls {
@@ -93,7 +107,7 @@ body, html {
 
 .calendar-grid-cell {
   padding: 20px;
-  min-height: 129px;
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,6 +122,11 @@ body, html {
 }
 
 .calendar-grid-cell-active, .calendar-grid-cell:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.calendar-grid-cell-highlight {
   background-color: #007bff;
   color: white;
 }
