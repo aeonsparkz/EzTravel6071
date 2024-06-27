@@ -15,15 +15,17 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
   const [time, setTime] = useState<string>('');
   const [placeName, setPlaceName] = useState<string>('');
   const [placeAddress, setPlaceAddress] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [popUp, setPopUp] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddMeeting(date, time, placeName, placeAddress);
+    onAddMeeting(date, time, placeName);
     setDate('');
     setTime('');
     setPlaceName('');
     setPlaceAddress('');
+    setDescription('');
   };
 
   type mapOutputProps = {
@@ -70,24 +72,20 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
             />
           </div>
           <div className="setDetails_description">
-            <label htmlFor="description">Name: </label>
+            <label htmlFor="description">Description: </label>
             <input
               type="text"
-              id="placename"
-              value={placeName}
-              onChange={(e) => setPlaceName(e.target.value)}
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
-          <div className="setDetails_description">
+          <div className="setDetails_location">
+            <label htmlFor="description">Name: </label>
+            <p id="placeName">{placeName}</p>
             <label htmlFor="description">Address:</label>
-            <input
-              type="text"
-              id="placeaddress"
-              value={placeAddress}
-              onChange={(e) => setPlaceAddress(e.target.value)}
-              required
-            />
+            <p id="placeAddress">{placeAddress}</p>
           </div>
           <div>
             <button className="Buttons" onClick={() => setPopUp(true)}>Add Location</button>

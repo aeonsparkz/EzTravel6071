@@ -10,10 +10,18 @@
 }
 
 .planning .setDetails_description input {
-    width: 500px;
-    height: 40px;
+    width: 520px;
+    height: 30px;
     white-space: pre-wrap;
+    border: 2px solid black;
 }
+
+.planning .setDetails_location {
+    border: 2px solid black;
+    margin: 10px;
+    width: 520px;
+}
+
 
 .locationschosen {
     border: 2px solid black;
