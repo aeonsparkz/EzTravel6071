@@ -1,0 +1,48 @@
+.planning {
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+}
+
+.planning .setDetails {
+    padding: 10px;
+}
+
+.planning .setDetails_description input {
+    width: 520px;
+    height: 30px;
+    white-space: pre-wrap;
+    border: 2px solid black;
+}
+
+.planning .setDetails_location {
+    border: 2px solid black;
+    margin: 10px;
+    width: 520px;
+}
+
+
+.locationschosen {
+    border: 2px solid black;
+    width: 520px;
+    text-align: center;
+    justify-content: center;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 15vh;
+    padding: 15px;
+    margin-bottom: 6px;
+}
+
+.locations .content {
+    font-size: 16px;
+}
+
+.Buttons {
+    padding: 5px;
+    margin-bottom: 6px;
+}
+
+

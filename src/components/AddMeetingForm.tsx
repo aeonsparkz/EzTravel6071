@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Googlemaps from './Googlemaps';
+import "./AddMeetingForm.css";
+import ExpenditureTracker from "./ExpenditureTracker";
 
 interface AddMeetingFormProps {
   userId: string;
@@ -11,20 +13,31 @@ interface AddMeetingFormProps {
 const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting }) => {
   const [date, setDate] = useState<string>('');
   const [time, setTime] = useState<string>('');
+  const [placeName, setPlaceName] = useState<string>('');
+  const [placeAddress, setPlaceAddress] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [popUp, setPopUp] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddMeeting(date, time, description);
+    onAddMeeting(date, time, placeName);
     setDate('');
     setTime('');
+    setPlaceName('');
+    setPlaceAddress('');
     setDescription('');
   };
 
   type mapOutputProps = {
-    name: string | undefined;
-    address: string | undefined;
+    name: string | undefined
+    address: string | undefined
+  }
+
+  const handleDescription = (string1: string | undefined, string2: string | undefined) => {
+    if (string1 !== undefined && string2 !== undefined) {
+      setPlaceName(string1)
+      setPlaceAddress(string2)
+    }
   }
 
   const [mapOutput, setMapOutput] = useState<mapOutputProps[]>([]);
@@ -36,50 +49,67 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting })
 
   return (
     <form onSubmit={handleSubmit} className="add-meeting-form">
-      <div>
-        <label htmlFor="date">Date:</label>
-        <input
-          type="date"
-          id="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="time">Time:</label>
-        <input
-          type="time"
-          id="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <input
-          type="text"
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <button type="button" onClick={() => setPopUp(true)}>Add Location</button>
-        <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
-      </div>
-      {mapOutput.map((list, index) => (
-        <div key={index} className="list_items">
-          ______________________________________________________
-          <p className="content">Name: {list.name}</p>
-          <p className="content">Address: {list.address}</p>
+      <div className="planning">
+        <div className="setDetails">
+          <div className="setDetails_date">
+            <label htmlFor="date">Date:</label>
+            <input
+              type="date"
+              id="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+          </div>
+          <div className="setDetails">
+            <label htmlFor="time">Time:</label>
+            <input
+              type="time"
+              id="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required
+            />
+          </div>
+          <div className="setDetails_description">
+            <label htmlFor="description">Description: </label>
+            <input
+              type="text"
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+          </div>
+          <div className="setDetails_location">
+            <label htmlFor="description">Name: </label>
+            <p id="placeName">{placeName}</p>
+            <label htmlFor="description">Address:</label>
+            <p id="placeAddress">{placeAddress}</p>
+          </div>
+          <div>
+            <button className="Buttons" onClick={() => setPopUp(true)}>Add Location</button>
+            <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
+          </div>
+          </div>
+          <div className="locationschosen">
+            {mapOutput.map((list: mapOutputProps) => {
+              return (
+                <div className="locations">
+                  ___________________________________________________
+                  <p className="content">Name: {list.name}</p>
+                  <p className="content">Address: {list.address}</p>
+                  <button onClick={() => handleDescription(list.name, list.address)}>Add To Description</button>
+                </div>
+              )
+            }
+            )}
+          </div>
+          <button className="Buttons" type="submit">Add Meeting</button>
         </div>
-      ))}
-      <button type="submit">Add Meeting</button>
+        <ExpenditureTracker />
     </form>
   );
-};
+}
 
 export default AddMeetingForm;

@@ -17,6 +17,7 @@ body, html {
   background-repeat: no-repeat; 
   background-attachment: fixed;
 }
+
 .calendar-container {
   display: flex;
   flex-direction: row;
@@ -26,7 +27,7 @@ body, html {
 }
 
 .calendar {
-  flex: 2;
+  flex: 1.6;
   padding: 20px;
   background-color: #ffffff;
   border-right: 2px solid #e0e0e0;
@@ -92,7 +93,7 @@ body, html {
 
 .calendar-grid-cell {
   padding: 20px;
-  min-height: 100px;
+  min-height: 129px;
   display: flex;
   align-items: center;
   justify-content: center;
