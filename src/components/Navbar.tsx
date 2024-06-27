@@ -11,7 +11,7 @@ function Navbar() {
                     <li><a href="/CreateItinerary">Create Itinerary</a></li>
                     <li><a href="/MyItinerary">My Itineraries</a></li>
                     <div className="signout_button">
-                    <SignOut />
+                        <SignOut />
                     </div>
                 </ul>
             </div>

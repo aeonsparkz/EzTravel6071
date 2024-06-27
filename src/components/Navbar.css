@@ -1,13 +1,22 @@
 .navbar {
     position: fixed;
+    top: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     transition: top 0.3s;
     z-index: 1000;
     display: flex;
-    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center; 
     height: 80px;
+    padding: 0 20px; 
+    box-sizing: border-box;
+}
+
+.navbar_container {
+    display: flex;
+    align-items: center;
 }
 
 .navbar_container ul {
@@ -15,30 +24,25 @@
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: right;
-    align-items: right;
-    margin: 130px;
+    align-items: center;
 }
 
 .navbar_container ul li {
-    margin:40px;
-    font-size:25px;
-    text-decoration: none;
-    margin-right: 50px;
+    margin: 0 20px;
+    font-size: 18px;
 }
 
 .navbar_container ul li a {
     text-decoration: none;
     color: white;
-    padding: 5px;
+    padding: 5px 10px; 
 }
 
 .navbar h1 {
-    font-size: 50px;
-    margin: 70px;
+    font-size: 24px; 
+    margin: 0; 
 }
 
-
 .signout_button {
-    margin-left: 40px;
+    margin-left: 20px; 
 }
