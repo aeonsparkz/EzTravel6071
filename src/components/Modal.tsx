@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Modal.css'; // Import your CSS file for styling
+import './Modal.css';
 
 interface Itinerary {
   id: string;
