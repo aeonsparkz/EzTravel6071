@@ -11,6 +11,12 @@ import "./Googlemaps.css";
 import PlacesAutocomplete from "./PlacesAutocomplete";
 import MapHandler from "./MapHandler";
 
+const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
+
+if (!apiKey) {
+    throw new Error('Google Maps API key is missing');
+}
+
 type listOfLocationsProps = {
     name: string | undefined;
     address: string | undefined;
@@ -75,7 +81,7 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
         <>
         <div className="display-container">
             <div className="display">
-                <APIProvider apiKey={"AIzaSyCJRA498FqP-V_Ozl6649WZpGtnw8fqd6s"}>
+                <APIProvider apiKey={apiKey}>
                     <div className="map-container" style={{ borderRadius: "20px" }}>
                         <Map
                             defaultZoom={10}

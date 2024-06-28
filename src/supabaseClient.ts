@@ -1,7 +1,12 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://kcfqgifdnwqtlquxstib.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjZnFnaWZkbndxdGxxdXhzdGliIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTg4MTEwMjUsImV4cCI6MjAzNDM4NzAyNX0.csL8mz0NK6thQK59MHfP-JJ7XZuAtYMINfY1sQ25Hjk'
-const supabase = createClient(supabaseUrl, supabaseKey)
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error("Missing Supabase URL or Key. Please check your environment variables.");
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default supabase;
