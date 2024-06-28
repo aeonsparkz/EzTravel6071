@@ -273,7 +273,15 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
                   </li>
                 ))}
               </ul>
-              <button onClick={toggleUpdating}>
+              <button onClick={toggleUpdating}
+                style={{
+                  backgroundColor: 'blue',
+                  color: 'white',
+                  borderRadius: '5px',
+                  margin: '10px',
+                  width: '120px',
+                  height: '25px'
+                }}>
                 {isUpdating ? "Finish Updating" : "Update"}
               </button>
               {isUpdating && activeDay && (

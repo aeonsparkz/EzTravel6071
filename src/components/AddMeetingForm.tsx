@@ -44,25 +44,13 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting, d
       setPlaceAddress(address || '');
     }
   }
-  
+
   return (
     <form onSubmit={handleSubmit} className="add-meeting-form">
       <div className="planning">
         <div className="setDetails">
-          {!initialDate && (
-            <div className="setDetails_date">
-              <label htmlFor="date">Date:</label>
-              <input
-                type="date"
-                id="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
-            </div>
-          )}
-          <div className="setDetails">
-            <label htmlFor="time">Time:</label>
+          <div className="setDetails_time">
+            <label htmlFor="time">Input Time of Activity</label>
             <input
               type="time"
               id="time"
@@ -72,7 +60,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting, d
             />
           </div>
           <div className="setDetails_description">
-            <label htmlFor="description">Description: </label>
+            <label htmlFor="description">Description of Activity </label>
             <input
               type="text"
               id="description"
@@ -81,20 +69,35 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting, d
               required
             />
           </div>
-          <p className="setDetails_header">Location</p>
+          <label htmlFor="header">Name and Address of Location</label>
+          <div>
+            <button type="button" 
+             style={{
+              backgroundColor: 'blue',
+              color: 'white',
+              borderRadius: '5px',
+              margin: '10px',
+              width: '120px',
+              height: '25px'
+            }} onClick={() => setPopUp(true)}>Add Location</button>
+            <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
+          </div>
           <div className="setDetails_location">
             <label htmlFor="placeName">Location Name: </label>
             <p id="placeName">{placeName}</p>
             <label htmlFor="placeAddress">Location Address:</label>
             <p id="placeAddress">{placeAddress}</p>
           </div>
-          <div>
-            <button type="button" className="Buttons" onClick={() => setPopUp(true)}>Add Location</button>
-            <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
-          </div>
         </div>
-        <button className="Buttons" type="submit">Add Meeting</button>
       </div>
+      <button style={{
+        backgroundColor: 'blue',
+        color: 'white',
+        borderRadius: '5px',
+        margin: '10px',
+        width: '120px',
+        height: '25px'
+      }} type="submit">Add Activity</button>
     </form>
   );
 }

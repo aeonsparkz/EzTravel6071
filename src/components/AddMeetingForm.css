@@ -7,10 +7,19 @@
 
 .planning .setDetails {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
 }
 
-.planning .setDetails_header {
-    margin-top: 10px;  
+.planning .setDetails_time {
+    display: flex;
+    flex-direction:column;
+}
+
+
+.planning .setDetails_description {
+    margin: 15px 0;
 }
 
 .planning .setDetails_description input {
@@ -18,6 +27,8 @@
     height: 30px;
     white-space: pre-wrap;
     border: 2px solid black;
+    margin-top: 10px;
+    background: transparent;
 }
 
 .planning .setDetails_location {
