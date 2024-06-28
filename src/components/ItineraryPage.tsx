@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import Navbar from './Navbar';
 import { DateTime, Interval } from 'luxon';
-import './ItineraryPage.css'; // Make sure to import the CSS file
+import './ItineraryPage.css';
 
 interface Meeting {
   time: string;
@@ -21,7 +21,7 @@ const ItineraryPage: React.FC = () => {
   const [meetings, setMeetings] = useState<Record<string, Meeting[]>>({});
   const location = useLocation();
   const itinerary = location.state as Itinerary;
-  const navigate = useNavigate(); // Add useNavigate hook
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMeetings = async () => {
