@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import Navbar from './Navbar';
 import { DateTime, Interval } from 'luxon';
-import './ItineraryPage.css';
+import './ItineraryPage.css'; // Make sure to import the CSS file
+
 interface Meeting {
   time: string;
   description: string;
@@ -20,6 +21,7 @@ const ItineraryPage: React.FC = () => {
   const [meetings, setMeetings] = useState<Record<string, Meeting[]>>({});
   const location = useLocation();
   const itinerary = location.state as Itinerary;
+  const navigate = useNavigate(); // Add useNavigate hook
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -59,6 +61,14 @@ const ItineraryPage: React.FC = () => {
     .splitBy({ day: 1 })
     .map((day) => day.start?.toISODate() || '');
 
+  const handleEditClick = () => {
+    const startMonth = new Date(itinerary.start_date).getMonth() + 1; // Months are zero-based
+    const startYear = new Date(itinerary.start_date).getFullYear();
+    navigate(`/CalendarHandler?month=${startMonth}&year=${startYear}`, {
+      state: { id: itinerary.id, name: itinerary.name, start_date: itinerary.start_date, end_date: itinerary.end_date }
+    });
+  };
+
   return (
     <div>
       <Navbar />
@@ -79,6 +89,9 @@ const ItineraryPage: React.FC = () => {
             </div>
           ))}
         </div>
+        <button onClick={handleEditClick} className="edit-itinerary-button">
+          Edit Itinerary
+        </button>
       </div>
     </div>
   );
