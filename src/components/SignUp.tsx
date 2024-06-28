@@ -64,7 +64,7 @@ const SignUp: React.FC = () => {
               />
             </div>
             <button type="submit">Sign Up</button>
-            <div>{message}</div>
+            <div className="error_message">{message}</div>
           </form>
         </div>
       </div>
