@@ -24,7 +24,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting, d
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const fullDescription = `${time} - ${description} - Location: ${placeName}, ${placeAddress}`;
+    const fullDescription = `${description} - Location: ${placeName}, ${placeAddress}`;
     onAddMeeting(date, time, fullDescription);
     setTime('');
     setPlaceName('');
