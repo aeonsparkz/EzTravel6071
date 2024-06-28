@@ -14,6 +14,7 @@ interface CalendarProps {
   userId: string;
   meetings: Record<string, Meeting[]>;
   state: {
+    id: string;
     name: string;
     start_date: string;
     end_date: string;
@@ -37,7 +38,8 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
       const { data, error } = await supabase
         .from("Plans")
         .select("*")
-        .eq("user_id", userId);
+        .eq("user_id", userId)
+        .eq("itinerary_id", state.id);
       if (error) {
         throw error;
       }
@@ -46,18 +48,18 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
         if (!acc[date]) {
           acc[date] = [];
         }
-        acc[date].push({ time: meeting.time, description: meeting.meetings });
+        acc[date].push({ time: meeting.time, description: meeting.description });
         return acc;
       }, {});
       setMeetings(fetchedMeetings);
     } catch (error) {
-      console.error("Error fetching meetings:", (error as Error).message);
+      console.error("Error fetching meetings:", error);
     }
   };
 
   useEffect(() => {
     fetchMeetings();
-  }, [userId]);
+  }, [userId, state.id]);
 
   useEffect(() => {
     setFirstDayOfActiveMonth(DateTime.fromObject({ year: selectedYear, month: selectedMonth }).startOf("month"));
@@ -71,7 +73,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
         updatedMeetings[date] = [];
       }
       updatedMeetings[date].push(newMeeting);
-      updatedMeetings[date].sort((a, b) => a.time.localeCompare(b.time)); // Sort meetings by time
+      updatedMeetings[date].sort((a, b) => a.time.localeCompare(b.time));
       return updatedMeetings;
     });
 
@@ -81,7 +83,8 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
         .select("*")
         .eq("user_id", userId)
         .eq("date", date)
-        .eq("time", time);
+        .eq("time", time)
+        .eq("itinerary_id", state.id);
 
       if (existingError) {
         throw existingError;
@@ -90,10 +93,11 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
       if (existingData && existingData.length > 0) {
         const { error: updateError } = await supabase
           .from("Plans")
-          .update({ meetings: description })
+          .update({ description })
           .eq("user_id", userId)
           .eq("date", date)
-          .eq("time", time);
+          .eq("time", time)
+          .eq("itinerary_id", state.id);
 
         if (updateError) {
           throw updateError;
@@ -101,7 +105,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
       } else {
         const { error: insertError } = await supabase
           .from("Plans")
-          .insert({ user_id: userId, date, time, meetings: description });
+          .insert({ user_id: userId, date, time, description, itinerary_id: state.id });
 
         if (insertError) {
           throw insertError;
@@ -110,7 +114,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
 
       fetchMeetings();
     } catch (error) {
-      console.error("Error adding or updating meeting:", (error as Error).message);
+      console.error("Error adding or updating meeting:", error);
     }
   };
 
@@ -130,7 +134,8 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
         .delete()
         .eq("user_id", userId)
         .eq("date", date)
-        .eq("time", time);
+        .eq("time", time)
+        .eq("itinerary_id", state.id);
 
       if (error) {
         throw error;
@@ -138,7 +143,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
 
       fetchMeetings();
     } catch (error) {
-      console.error("Error deleting meeting:", (error as Error).message);
+      console.error("Error deleting meeting:", error);
     }
   };
 

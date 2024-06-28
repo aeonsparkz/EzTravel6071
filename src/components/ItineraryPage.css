@@ -1,0 +1,38 @@
+.itinerary-page {
+    padding: 20px;
+    padding-top: 100px; 
+}
+  
+  .itinerary-page h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .itinerary-page p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .meetings-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .day-meetings {
+    margin-bottom: 20px;
+  }
+  
+  .day-meetings h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .day-meetings ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .day-meetings li {
+    padding: 5px 0;
+  }
+  

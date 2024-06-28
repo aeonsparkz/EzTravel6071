@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import supabase from "../supabaseClient";
 
 type Itinerary = {
-  id: number;
+  id: string;
   name: string;
   start_date: string;
   end_date: string;
@@ -37,31 +37,30 @@ const MyItinerary: React.FC = () => {
             .from('Itinerary')
             .select('*')
             .eq('user_id', userId);
-
+  
           if (error) {
             throw error;
           }
-
+  
           setItineraries(data);
         } catch (error) {
           console.error('Error fetching itineraries:', error);
         }
       }
     };
-
+  
     fetchItineraries();
   }, [userId]);
+  
 
   const handleCardClick = (itinerary: Itinerary) => {
-    const startMonth = new Date(itinerary.start_date).getMonth() + 1;
-    const startYear = new Date(itinerary.start_date).getFullYear();
-    navigate(`/CalendarHandler?userId=${userId}&month=${startMonth}&year=${startYear}`, { state: itinerary });
+    navigate(`/ItineraryPage`, { state: itinerary });
   };
 
   return (
     <div>
+      <Navbar />
       <div className="itinerary_background">
-        <Navbar />
         <div className="setItinerary">
           <h1>My Itineraries</h1>
           <div className="card_container">

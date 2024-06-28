@@ -6,6 +6,7 @@ import CalendarHandler from "./components/CalendarHandler";
 import HomePage from "./components/HomePage";
 import CreateItinerary from "./components/CreateItinerary";
 import MyItinerary from  "./components/MyItinerary";
+import ItineraryPage from "./components/ItineraryPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/CalendarHandler" element={<CalendarHandler />} />
         <Route path="/CreateItinerary" element={<CreateItinerary/>} />
         <Route path="/MyItinerary" element={<MyItinerary />} />
+        <Route path="/ItineraryPage" element={<ItineraryPage />} />
       </Routes>
     </>
   );

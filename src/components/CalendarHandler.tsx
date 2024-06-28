@@ -11,19 +11,22 @@ interface Meeting {
 
 const CalendarHandler: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
-  const [itinerary, setItinerary] = useState<{ name: string, start_date: string, end_date: string } | null>(null);
+  const [itinerary, setItinerary] = useState<{ id: string, name: string, start_date: string, end_date: string } | null>(null);
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const initialMonth = parseInt(queryParams.get('month') || '') || new Date().getMonth() + 1;
-  const initialYear = parseInt(queryParams.get('year') || '') || new Date().getFullYear();
-  const userIdFromQuery = queryParams.get('userId');
-  const state = location.state as { name: string, start_date: string, end_date: string };
+  const state = location.state as { id: string, name: string, start_date: string, end_date: string };
 
   useEffect(() => {
-    if (userIdFromQuery) {
-      setUserId(userIdFromQuery);
-    }
-  }, [userIdFromQuery]);
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user) {
+        setUserId(data.user.id);
+      } else {
+        console.error('User not logged in');
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     if (state) {
@@ -35,17 +38,17 @@ const CalendarHandler: React.FC = () => {
 
   useEffect(() => {
     const fetchMeetings = async () => {
-      if (userId) {
+      if (itinerary) {
         try {
           const { data, error } = await supabase
             .from('Plans')
             .select('*')
-            .eq('user_id', userId);
-
+            .eq('itinerary_id', itinerary.id);
+  
           if (error) {
             throw error;
           }
-
+  
           const fetchedMeetings = data.reduce((acc: Record<string, Meeting[]>, meeting) => {
             const date = meeting.date;
             if (!acc[date]) {
@@ -60,9 +63,9 @@ const CalendarHandler: React.FC = () => {
         }
       }
     };
-
+  
     fetchMeetings();
-  }, [userId]);
+  }, [itinerary]);
 
   if (!userId || !itinerary) {
     return <div>Loading...</div>;
