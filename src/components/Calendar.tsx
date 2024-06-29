@@ -18,6 +18,8 @@ interface CalendarProps {
     name: string;
     start_date: string;
     end_date: string;
+    startMonth: number;
+    startYear: number;
   };
 }
 
@@ -25,13 +27,13 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
   const today = DateTime.local();
   const [activeDay, setActiveDay] = useState<DateTime | null>(null);
   const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState<DateTime>(
-    today.startOf("month")
+    DateTime.fromObject({ year: state.startYear, month: state.startMonth }).startOf("month")
   );
   const [meetings, setMeetings] = useState<Record<string, Meeting[]>>(initialMeetings);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
-  const [selectedMonth, setSelectedMonth] = useState<number>(today.month);
-  const [selectedYear, setSelectedYear] = useState<number>(today.year);
+  const [selectedMonth, setSelectedMonth] = useState<number>(state.startMonth);
+  const [selectedYear, setSelectedYear] = useState<number>(state.startYear);
 
   const fetchMeetings = async () => {
     try {

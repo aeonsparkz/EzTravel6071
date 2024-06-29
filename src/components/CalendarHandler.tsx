@@ -11,9 +11,9 @@ interface Meeting {
 
 const CalendarHandler: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
-  const [itinerary, setItinerary] = useState<{ id: string, name: string, start_date: string, end_date: string } | null>(null);
+  const [itinerary, setItinerary] = useState<{ id: string, name: string, start_date: string, end_date: string, startMonth: number, startYear: number } | null>(null);
   const location = useLocation();
-  const state = location.state as { id: string, name: string, start_date: string, end_date: string };
+  const state = location.state as { id: string, name: string, start_date: string, end_date: string, startMonth: number, startYear: number };
 
   useEffect(() => {
     const fetchUser = async () => {

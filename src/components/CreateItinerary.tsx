@@ -62,7 +62,14 @@ const CreateItinerary: React.FC = () => {
       const startYear = new Date(itineraryData.start_date).getFullYear();
 
       navigate(`/CalendarHandler?month=${startMonth}&year=${startYear}`, {
-        state: { id: itineraryData.id, name: itineraryData.name, start_date: itineraryData.start_date, end_date: itineraryData.end_date }
+        state: { 
+          id: itineraryData.id, 
+          name: itineraryData.name, 
+          start_date: itineraryData.start_date, 
+          end_date: itineraryData.end_date,
+          startMonth: startMonth,
+          startYear: startYear
+        }
       });
     } catch (error) {
       console.error('Error creating itinerary:', error);

@@ -62,10 +62,17 @@ const ItineraryPage: React.FC = () => {
     .map((day) => day.start?.toISODate() || '');
 
   const handleEditClick = () => {
-    const startMonth = new Date(itinerary.start_date).getMonth() + 1; // Months are zero-based
+    const startMonth = new Date(itinerary.start_date).getMonth() + 1;
     const startYear = new Date(itinerary.start_date).getFullYear();
     navigate(`/CalendarHandler?month=${startMonth}&year=${startYear}`, {
-      state: { id: itinerary.id, name: itinerary.name, start_date: itinerary.start_date, end_date: itinerary.end_date }
+      state: { 
+        id: itinerary.id, 
+        name: itinerary.name, 
+        start_date: itinerary.start_date, 
+        end_date: itinerary.end_date,
+        startMonth: startMonth,
+        startYear: startYear 
+      }
     });
   };
 
