@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Googlemaps from './Googlemaps';
-import "./AddMeetingForm.css";
+import "./styles/AddMeetingForm.css";
 
 interface AddMeetingFormProps {
   userId: string;

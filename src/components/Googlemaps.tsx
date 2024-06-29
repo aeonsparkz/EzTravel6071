@@ -7,7 +7,7 @@ import {
     AdvancedMarker,
     useAdvancedMarkerRef
 } from "@vis.gl/react-google-maps";
-import "./Googlemaps.css";
+import "./styles/Googlemaps.css";
 import PlacesAutocomplete from "./PlacesAutocomplete";
 import MapHandler from "./MapHandler";
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./MyItinerary.css";
+import "./styles/MyItinerary.css";
 import Navbar from "./Navbar";
 import supabase from "../supabaseClient";
 import Modal from './Modal';

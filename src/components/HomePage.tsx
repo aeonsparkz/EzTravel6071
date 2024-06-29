@@ -1,4 +1,4 @@
-import "./HomePage.css";
+import "./styles/HomePage.css";
 import Navbar from "./Navbar";
 
 function HomePage() {
