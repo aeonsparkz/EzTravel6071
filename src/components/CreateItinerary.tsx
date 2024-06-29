@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 import supabase from '../supabaseClient';
 import Navbar from './Navbar';
-import './CreateItinerary.css';
+import './styles/CreateItinerary.css';
 
 interface Itinerary {
   id: string;

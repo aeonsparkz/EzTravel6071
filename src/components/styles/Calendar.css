@@ -9,7 +9,7 @@ body, html {
 .calendar_background { 
   display: flex;
   flex-direction: column;
-  background-image: url("./image/image.jpg");
+  background-image: url("../image/image.jpg");
   background-size: cover; 
   width: 100%;
   height: 100vh;

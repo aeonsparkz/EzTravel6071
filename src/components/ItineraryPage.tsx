@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import Navbar from './Navbar';
 import { DateTime, Interval } from 'luxon';
-import './ItineraryPage.css';
+import './styles/ItineraryPage.css';
 
 interface Meeting {
   time: string;

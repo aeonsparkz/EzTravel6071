@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signUp } from "./auth";
 import { Link } from "react-router-dom";
-import "./SignUp.css";
+import "./styles/SignUp.css";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");

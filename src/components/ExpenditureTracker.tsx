@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./ExpenditureTracker.css";
+import "./styles/ExpenditureTracker.css";
 
 function ExpenditureTracker() {
     const [task, setTask] = useState("");

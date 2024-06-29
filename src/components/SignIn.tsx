@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signIn } from './auth';
-import "./SignIn.css";
+import "./styles/SignIn.css";
 import { Link, useNavigate } from "react-router-dom"
 
 const SignIn: React.FC = () => {
