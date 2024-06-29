@@ -87,11 +87,15 @@ const ItineraryPage: React.FC = () => {
             <div key={date} className="day-meetings">
               <h2>{DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}</h2>
               <ul>
-                {meetings[date]?.map((meeting: Meeting, index: number) => (
-                  <li key={index}>
-                    {meeting.time} - {meeting.description}
-                  </li>
-                )) || <li>No activities planned.</li>}
+                {meetings[date]?.length ? (
+                  meetings[date].map((meeting, index) => (
+                    <li key={index}>
+                      {meeting.time} - {meeting.description}
+                    </li>
+                  ))
+                ) : (
+                  <li>No activities planned.</li>
+                )}
               </ul>
             </div>
           ))}
