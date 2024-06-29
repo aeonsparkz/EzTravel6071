@@ -6,8 +6,8 @@ import "./styles/SignUp.css";
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,46 +28,49 @@ const SignUp: React.FC = () => {
 
   return (
     <div className="signup_background">
-        <div className="signup_header">
-          <Link to="/" className="signup_logo">
-            <h1>EzTravel</h1>
-          </Link>
-        </div>
-        <div className="signup_container">
-          <form onSubmit={handleSignUp}>
-            <h1>Travel With Us!</h1>
-            <div className="input-box">
-              <label>Email:</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="input-box">
-              <label>Password:</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <div className="input-box">
-              <label>Confirm Password:</label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">Sign Up</button>
-            <div className="error_message">{message}</div>
-          </form>
-        </div>
+      <div className="signup_header">
+        <Link to="/" className="signup_logo">
+          <h1>EzTravel</h1>
+        </Link>
       </div>
+      <div className="signup_container">
+        <form onSubmit={handleSignUp}>
+          <h1>Travel With Us!</h1>
+          <div className="input-box">
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-box">
+            <label htmlFor="password">Password:</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-box">
+            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Sign Up</button>
+          <div className="error_message">{message}</div>
+        </form>
+      </div>
+    </div>
   );
 };
 

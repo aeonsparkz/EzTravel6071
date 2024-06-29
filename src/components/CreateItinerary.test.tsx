@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import CreateItinerary from './CreateItinerary';
@@ -15,7 +14,6 @@ describe('CreateItinerary Component', () => {
       data: { user: { id: '1', user_metadata: { name: 'Test User' } } },
       error: null,
     });
-
     supabase.from = jest.fn().mockReturnValue({
       insert: mockInsert,
       select: jest.fn().mockReturnThis(),
@@ -25,11 +23,9 @@ describe('CreateItinerary Component', () => {
       }),
     });
   });
-
   afterEach(() => {
     jest.clearAllMocks();
   });
-
   test('renders CreateItinerary component', async () => {
     await act(async () => {
       render(

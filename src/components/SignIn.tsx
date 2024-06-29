@@ -21,7 +21,6 @@ const SignIn: React.FC = () => {
   };
 
   return (
-
     <div className="signin_background">
       <div className="signin_content_container">
         <div className='signin_header'>
@@ -37,14 +36,14 @@ const SignIn: React.FC = () => {
           <form onSubmit={handleSignIn}>
             <div>
               <div className='input-box'>
-                <label>Email:</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <label htmlFor="email">Email:</label>
+                <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
             </div>
             <div>
               <div className='input-box'>
-                <label>Password:</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <label htmlFor="password">Password:</label>
+                <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
             </div>
             <button type="submit">Sign In</button>

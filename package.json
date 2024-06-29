@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/google.maps": "^3.55.10",
     "@types/luxon": "^3.4.2",
     "gh-pages": "^6.1.1"
