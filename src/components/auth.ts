@@ -8,6 +8,19 @@ interface AuthResponse {
 }
 
 export const signUp = async (email: string, password: string): Promise<AuthResponse> => {
+  const { data: existingUser, error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (existingUser?.user) {
+    return {
+      user: null,
+      session: null,
+      error: { message: 'Email is already in use.' } as AuthError,
+    };
+  }
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -19,6 +32,7 @@ export const signUp = async (email: string, password: string): Promise<AuthRespo
     error,
   };
 };
+
 
 export const signIn = async (email: string, password: string): Promise<AuthResponse> => {
   const { data, error } = await supabase.auth.signInWithPassword({

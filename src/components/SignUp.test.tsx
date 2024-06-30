@@ -35,8 +35,27 @@ describe('SignUp Component', () => {
     });
   });
 
+  test('displays error message on existing email', async () => {
+    (signUp as jest.Mock).mockResolvedValue({ user: null, session: null, error: { message: 'Email is already in use.' } });
+
+    render(
+      <BrowserRouter>
+        <SignUp />
+      </BrowserRouter>
+    );
+
+    fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'existing@example.com' } });
+    fireEvent.change(screen.getAllByLabelText(/Password/i)[0], { target: { value: 'password123' } });
+    fireEvent.change(screen.getAllByLabelText(/Password/i)[1], { target: { value: 'password123' } });
+    fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Error: Email is already in use./i)).toBeInTheDocument();
+    });
+  });
+
   test('displays error message on failed sign up', async () => {
-    (signUp as jest.Mock).mockResolvedValue({ user: null, error: { message: 'Invalid email' } });
+    (signUp as jest.Mock).mockResolvedValue({ user: null, session: null, error: { message: 'Invalid email' } });
 
     render(
       <BrowserRouter>
@@ -55,7 +74,7 @@ describe('SignUp Component', () => {
   });
 
   test('displays success message on successful sign up', async () => {
-    (signUp as jest.Mock).mockResolvedValue({ user: { email: 'test@example.com' }, error: null });
+    (signUp as jest.Mock).mockResolvedValue({ user: { email: 'test@example.com' }, session: null, error: null });
 
     render(
       <BrowserRouter>
