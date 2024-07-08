@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./styles/MyItinerary.css";
 import Navbar from "./Navbar";
 import supabase from "../supabaseClient";
-import Modal from './Modal';
+import EditItinerary from "./EditItinerary";
 
 type Itinerary = {
   id: string;
@@ -134,7 +134,7 @@ const MyItinerary: React.FC = () => {
         </div>
       </div>
       {selectedItinerary && (
-        <Modal
+        <EditItinerary
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onEditSubmit={handleEditSubmit}

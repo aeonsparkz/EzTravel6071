@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "./styles/ExpenditureTracker.css";
+import Modal from "./Modal";
 
-function ExpenditureTracker() {
+interface ExpenditureTrackerProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+function ExpenditureTracker({ isOpen, onClose }: ExpenditureTrackerProps) {
     const [task, setTask] = useState("");
     const [totalExpense, setTotalExpense] = useState(0);
     const [cost, setCost] = useState('');
@@ -28,8 +34,12 @@ function ExpenditureTracker() {
         }
     }
 
+    if (!isOpen) {
+        return null;
+    }
+
     return (
-        <>
+        <Modal isOpen={isOpen} onClose={onClose} >
             <div className="header">
                 <h2>Expenditure Tracker</h2>
             </div>
@@ -53,16 +63,17 @@ function ExpenditureTracker() {
                 <div className="results">
                     {taskExpense.map((result, index) => (
                         <div>
-                        <p>Activity: {result.task}</p>
-                        <p>Cost: {result.expense}</p>
+                            <p>Activity: {result.task}</p>
+                            <p>Cost: {result.expense}</p>
                         </div>
                     ))}
-                <div className="totalexpense">
-                    <p>Total Expense: {totalExpense}</p>
+                    <div className="totalexpense">
+                        <p>Total Expense: {totalExpense}</p>
+                    </div>
                 </div>
             </div>
-            </div>
-        </>
+            <button type="button" onClick={onClose}>Cancel</button>
+        </Modal>
     )
 }
 

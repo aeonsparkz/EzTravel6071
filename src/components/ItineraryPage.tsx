@@ -4,6 +4,7 @@ import supabase from '../supabaseClient';
 import Navbar from './Navbar';
 import { DateTime, Interval } from 'luxon';
 import './styles/ItineraryPage.css';
+import ExpenditureTracker from './ExpenditureTracker';
 
 interface Meeting {
   time: string;
@@ -22,6 +23,7 @@ const ItineraryPage: React.FC = () => {
   const location = useLocation();
   const itinerary = location.state as Itinerary;
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -76,6 +78,10 @@ const ItineraryPage: React.FC = () => {
     });
   };
 
+  const handleEditExpenditure = () => {
+    setIsModalOpen(true)
+  }
+
   return (
     <div>
       <Navbar />
@@ -103,7 +109,13 @@ const ItineraryPage: React.FC = () => {
         <button onClick={handleEditClick} className="edit-itinerary-button">
           Edit Itinerary
         </button>
+        <div>
+        <button onClick={handleEditExpenditure} className="edit-expenses-button">
+          View/Add Expenses
+        </button>
+        </div>
       </div>
+      <ExpenditureTracker isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
