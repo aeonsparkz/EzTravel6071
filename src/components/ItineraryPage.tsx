@@ -115,7 +115,7 @@ const ItineraryPage: React.FC = () => {
         </button>
         </div>
       </div>
-      <ExpenditureTracker isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ExpenditureTracker isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} itineraryid={itinerary.id} />
     </div>
   );
 };

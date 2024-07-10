@@ -1,19 +1,18 @@
 .tracker {
-    width:100%;
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    height:auto;
-    border: 1px solid black;
+    height: auto;
 }
 
 .inputquestions {
     justify-content: space-evenly;
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
     padding: 10px;
-    width:50%;
+    width: 50%;
 }
 
 .tracker_input-box {
@@ -33,14 +32,48 @@
     font-size: 100px;
 }
 
+.results-item {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid black;
+}
+
+.results-item:last-child {
+    border-bottom: none;
+}
+
 .results {
-    width:80%;
-    display:flex;
-    flex-direction:row;
-    border: 2.5px solid black;
+    width: 100%;
     overflow: auto;
+    font-weight: bold;
+}
+
+.date-group {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    border: 2.5px solid black;
+    border-radius: 20px;
+}
+
+.date-column {
+    width: 150px;
+    margin: 40px;
+    font-weight: bold;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.tasks-column {
+    flex: 1;
 }
 
 .totalexpense {
-    width:100%;
+    width: 100%;
+    margin: 10px;
+    font-weight: bolder;
+    font-size: 25px;
+    color: red;
 }
