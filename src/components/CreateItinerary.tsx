@@ -18,6 +18,7 @@ const CreateItinerary: React.FC = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [userId, setUserId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,6 +40,11 @@ const CreateItinerary: React.FC = () => {
     try {
       if (!userId) {
         throw new Error('User not logged in');
+      }
+
+      if (new Date(startDate) >= new Date(endDate)) {
+        setError('Start date must be before end date');
+        return;
       }
 
       const insertResponse: PostgrestSingleResponse<Itinerary> = await supabase
@@ -73,6 +79,7 @@ const CreateItinerary: React.FC = () => {
       });
     } catch (error) {
       console.error('Error creating itinerary:', error);
+      setError((error as Error).message);
     }
   };
 
@@ -83,6 +90,7 @@ const CreateItinerary: React.FC = () => {
         <div className="tripinput_container">
           <h1>Create New Itinerary</h1>
           <form onSubmit={handleSubmit}>
+            {error && <p className="error">{error}</p>}
             <label>
               Name:
               <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />

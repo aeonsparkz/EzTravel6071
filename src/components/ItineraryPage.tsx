@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import { DateTime, Interval } from 'luxon';
 import './styles/ItineraryPage.css';
 import ExpenditureTracker from './ExpenditureTracker';
+import { saveAs } from 'file-saver';
 
 interface Meeting {
   time: string;
@@ -79,8 +80,35 @@ const ItineraryPage: React.FC = () => {
   };
 
   const handleEditExpenditure = () => {
-    setIsModalOpen(true)
-  }
+    setIsModalOpen(true);
+  };
+
+  const handleDownloadItinerary = () => {
+    const itineraryText = generateItineraryText();
+    const blob = new Blob([itineraryText], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, `${itinerary.name}-Itinerary.txt`);
+  };
+
+  const generateItineraryText = () => {
+    let itineraryText = `Itinerary: ${itinerary.name}\n`;
+    itineraryText += `Start Date: ${itinerary.start_date}\n`;
+    itineraryText += `End Date: ${itinerary.end_date}\n\n`;
+
+    daysInRange.forEach((date) => {
+      const meetingsForDay = meetings[date];
+      itineraryText += `${DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}\n`;
+      if (meetingsForDay?.length) {
+        meetingsForDay.forEach((meeting) => {
+          itineraryText += `  - ${meeting.time}: ${meeting.description}\n`;
+        });
+      } else {
+        itineraryText += '  No activities planned.\n';
+      }
+      itineraryText += '\n';
+    });
+
+    return itineraryText;
+  };
 
   return (
     <div>
@@ -110,9 +138,14 @@ const ItineraryPage: React.FC = () => {
           Edit Itinerary
         </button>
         <div>
-        <button onClick={handleEditExpenditure} className="edit-expenses-button">
-          View/Add Expenses
-        </button>
+          <button onClick={handleEditExpenditure} className="edit-expenses-button">
+            View/Add Expenses
+          </button>
+        </div>
+        <div>
+          <button onClick={handleDownloadItinerary} className="download-itinerary-button">
+            Download Itinerary
+          </button>
         </div>
       </div>
       <ExpenditureTracker isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} itineraryid={itinerary.id} />

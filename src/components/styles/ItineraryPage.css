@@ -65,3 +65,18 @@
         border-radius: 5px;
         transition: background-color 0.3s ease;
     }
+
+    .download-itinerary-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+      
+    .download-itinerary-button:hover {
+        background-color: #45a049;
+    }
+      
