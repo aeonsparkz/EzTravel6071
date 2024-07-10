@@ -81,6 +81,13 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
         <>
         <div className="display-container">
             <div className="display">
+                <h4>
+                    1. Type in your desired location
+                    <br></br>
+                    2. Zoom into the map and click on the location marker, a location tag should pop up
+                    <br></br>
+                    3. Click on "Add this location"
+                </h4>
                 <APIProvider apiKey={apiKey}>
                     <div className="map-container" style={{ borderRadius: "20px" }}>
                         <Map

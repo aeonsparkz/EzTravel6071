@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 
 describe('Navbar Component', () => {
   test('renders Navbar component with links and sign out button', () => {

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { act } from 'react';
-import Calendar from './Calendar';
+import Calendar from '../Calendar';
 
 const mockMeetings = {
   '2024-06-28': [{ time: '10:00 AM', description: 'Meeting 1' }],

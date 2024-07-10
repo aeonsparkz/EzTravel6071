@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import CreateItinerary from './CreateItinerary';
-import supabase from '../supabaseClient';
+import CreateItinerary from '../CreateItinerary';
+import supabase from '../../supabaseClient';
 
 jest.mock('../supabaseClient');
 

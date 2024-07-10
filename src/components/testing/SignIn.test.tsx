@@ -2,8 +2,8 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { BrowserRouter } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import SignIn from './SignIn';
-import { signIn } from './auth';
+import SignIn from '../SignIn';
+import { signIn } from '../auth';
 
 jest.mock('./auth');
 jest.mock('react-router-dom', () => ({
