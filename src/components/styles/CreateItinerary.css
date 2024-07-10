@@ -11,6 +11,11 @@
     justify-content: center;
     padding-top: 100px;
 }
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
 
 .tripinput_container {
     color: #333;

@@ -1,5 +1,6 @@
+import React, { useState } from "react";
 import Modal from "./Modal";
-import { useState } from "react";
+import "./styles/EditItinerary.css";
 
 interface Itinerary {
     id: string;
@@ -20,9 +21,14 @@ const EditItinerary: React.FC<EditItineraryProps> = ({ isOpen, onClose, onEditSu
     const [name, setName] = useState(itinerary.name);
     const [startDate, setStartDate] = useState(itinerary.start_date);
     const [endDate, setEndDate] = useState(itinerary.end_date);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (new Date(startDate) >= new Date(endDate)) {
+            setError("Start date must be before end date");
+            return;
+        }
         onEditSubmit({ ...itinerary, name, start_date: startDate, end_date: endDate });
     };
 
@@ -34,6 +40,7 @@ const EditItinerary: React.FC<EditItineraryProps> = ({ isOpen, onClose, onEditSu
         <Modal isOpen={isOpen} onClose={onClose}>
             <div>
                 <h2>Edit Itinerary</h2>
+                {error && <p className="error">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <label>
                         Name:
