@@ -8,6 +8,7 @@ body, html {
 
 .calendar_background { 
   display: flex;
+  position: relative;
   flex-direction: column;
   background-image: url("../image/image.jpg");
   background-size: cover; 
@@ -23,7 +24,7 @@ body, html {
   flex-direction: row;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.93);
+  background-color: rgba(255, 255, 255, 0.87);
 }
 
 .calendar {
@@ -117,12 +118,12 @@ body, html {
 }
 
 .calendar-grid-cell-active, .calendar-grid-cell:hover {
-  background-color: #007bff;
+  background-color: #759bc5;
   color: white;
 }
 
 .calendar-grid-cell-highlight {
-  background-color: #007bff;
+  background-color: #1d84f1;
   color: white;
 }
 
@@ -155,4 +156,21 @@ body, html {
 
 .sign-out-button button:hover {
   background-color: #0056b3;
+}
+
+.update-button {
+  background-color: rgb(66, 128, 243);
+  color: white;
+  border-radius: 5px;
+  margin: 20px;
+  width: 120px;
+  height: 50px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+  background-color: #007bff;
 }

@@ -59,13 +59,15 @@
     width: 100%;
     height: 50px;
     display: flex; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: flex-start; 
     justify-content: center; 
     margin: 20px 0;
 }
 
 .signin_container .input-box label {
-    margin-right: 10px;
+    margin-right: 5px;
+    width: 100%;
 }
 
 .signin_container .input-box input {
@@ -79,7 +81,7 @@
     border-radius: 40px;
     font-size: 15px;
     text-align: start;
-    padding: 0 15px;
+    padding: 10px 15px;
     box-sizing: border-box; 
 }
 

@@ -91,18 +91,36 @@ const CreateItinerary: React.FC = () => {
           <h1>Create New Itinerary</h1>
           <form onSubmit={handleSubmit}>
             {error && <p className="error">{error}</p>}
-            <label>
-              Name:
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-            </label>
-            <label>
-              Start Date:
-              <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} required />
-            </label>
-            <label>
-              End Date:
-              <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
-            </label>
+            <div className="input-box">
+              <label htmlFor="name">Name:</label>
+              <input 
+                id="name" 
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+                required 
+              />
+            </div>
+            <div className="input-box">
+              <label htmlFor="startDate">Start Date:</label>
+              <input 
+                id="startDate" 
+                type="date" 
+                value={startDate} 
+                onChange={(e) => setStartDate(e.target.value)} 
+                required 
+              />
+            </div>
+            <div className="input-box">
+              <label htmlFor="endDate">End Date:</label>
+              <input 
+                id="endDate" 
+                type="date" 
+                value={endDate} 
+                onChange={(e) => setEndDate(e.target.value)} 
+                required 
+              />
+            </div>
             <button type="submit">Create Itinerary</button>
           </form>
         </div>

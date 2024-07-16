@@ -3,6 +3,7 @@ import "./styles/Calendar.css";
 import { Info, DateTime, Interval } from "luxon";
 import classnames from "classnames";
 import AddMeetingForm from "./AddMeetingForm";
+import Modal from "./Modal";
 import supabase from "../supabaseClient";
 
 interface Meeting {
@@ -31,6 +32,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
   );
   const [meetings, setMeetings] = useState<Record<string, Meeting[]>>(initialMeetings);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const [selectedMonth, setSelectedMonth] = useState<number>(state.startMonth);
   const [selectedYear, setSelectedYear] = useState<number>(state.startYear);
@@ -176,8 +178,14 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
     setSelectedYear(newDate.year);
   };
 
-  const toggleUpdating = () => {
-    setIsUpdating(!isUpdating);
+  const handleUpdateClick = () => {
+    setIsUpdating(true);
+    setShowModal(true);
+  };
+
+  const handleFinishUpdating = () => {
+    setIsUpdating(false);
+    setShowModal(false);
   };
 
   return (
@@ -275,24 +283,19 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
                   </li>
                 ))}
               </ul>
-              <button onClick={toggleUpdating}
-                style={{
-                  backgroundColor: 'blue',
-                  color: 'white',
-                  borderRadius: '5px',
-                  margin: '10px',
-                  width: '120px',
-                  height: '25px'
-                }}>
+              <button 
+                onClick={isUpdating ? handleFinishUpdating : handleUpdateClick}
+                className="update-button"
+              >
                 {isUpdating ? "Finish Updating" : "Update"}
               </button>
-              {isUpdating && activeDay && (
-                <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} date={activeDay.toISODate() || undefined} />
-              )}
             </div>
           )}
         </div>
       </div>
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <AddMeetingForm userId={userId} onAddMeeting={handleAddMeeting} date={activeDay?.toISODate() || undefined} />
+      </Modal>
     </div>
   );
 };

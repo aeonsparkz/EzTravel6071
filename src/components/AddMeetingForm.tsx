@@ -71,15 +71,13 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting, d
           </div>
           <label htmlFor="header">Name and Address of Location</label>
           <div>
-            <button type="button" 
-             style={{
-              backgroundColor: 'blue',
-              color: 'white',
-              borderRadius: '5px',
-              margin: '10px',
-              width: '120px',
-              height: '25px'
-            }} onClick={() => setPopUp(true)}>Add Location</button>
+            <button
+              type="button"
+              className="location-button"
+              onClick={() => setPopUp(true)}
+            >
+              Add Location
+            </button>
             <Googlemaps trigger={popUp} setTrigger={setPopUp} extractData={handleMapOutput} />
           </div>
           <div className="setDetails_location">
@@ -90,14 +88,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ userId, onAddMeeting, d
           </div>
         </div>
       </div>
-      <button style={{
-        backgroundColor: 'blue',
-        color: 'white',
-        borderRadius: '5px',
-        margin: '10px',
-        width: '120px',
-        height: '25px'
-      }} type="submit">Add Activity</button>
+      <button className="add-activity-button" type="submit">Add Activity</button>
     </form>
   );
 }

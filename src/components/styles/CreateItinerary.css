@@ -1,16 +1,17 @@
 .tripinput {
     background-image: url("../image/image.jpg");
-    background-size: cover; 
+    background-size: cover;
     width: 100%;
     height: 100vh;
-    background-position: center; 
-    background-repeat: no-repeat; 
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 100px;
 }
+
 .error {
     color: red;
     font-weight: bold;
@@ -19,77 +20,63 @@
 
 .tripinput_container {
     color: #333;
-    width: 350px;
+    width: 550px;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 2.5px solid white;
-    padding: 50px 40px;
+    padding: 90px 60px;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     border-radius: 40px;
     font-weight: bold;
 }
 
 .tripinput_container h1 {
-    font-size: 20px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.tripinput_container form {
+    width: 100%;
+}
+
+.tripinput_container .input-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
 }
 
 .tripinput_container label {
-    margin: 5px;
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
 }
 
 .tripinput_container input {
-    margin: 10px;
-    width: 250px;
-    height: 25px;
+    flex-grow: 1;
+    height: 35px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.navbar {
-    position: fixed;
-    top: 0;
+.tripinput_container button {
+    background-color: #4f8ae4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    transition: top 0.3s;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    height: 80px;
-    padding: 0 20px; 
-    box-sizing: border-box;
+    height: 45px;
+    border-radius: 5px;
+    margin-top: 20px;
 }
 
-.navbar_container {
-    display: flex;
-    align-items: center;
-}
-
-.navbar_container ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-}
-
-.navbar_container ul li {
-    margin: 0 20px;
-    font-size: 18px;
-}
-
-.navbar_container ul li a {
-    text-decoration: none;
-    color: white;
-    padding: 5px 10px; 
-}
-
-.navbar h1 {
-    font-size: 24px; 
-    margin: 0; 
-}
-
-.signout_button {
-    margin-left: 20px; 
+.tripinput_container button:hover {
+    background-color: #5835f8;
+    transform: scale(1.05);
 }
