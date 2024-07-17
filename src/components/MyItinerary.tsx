@@ -4,6 +4,7 @@ import "./styles/MyItinerary.css";
 import Navbar from "./Navbar";
 import supabase from "../supabaseClient";
 import EditItinerary from "./EditItinerary";
+import Card from "./Card";
 
 type Itinerary = {
   id: string;
@@ -40,21 +41,21 @@ const MyItinerary: React.FC = () => {
             .from('Itinerary')
             .select('*')
             .eq('user_id', userId);
-  
+
           if (error) {
             throw error;
           }
-  
+
           setItineraries(data);
         } catch (error) {
           console.error('Error fetching itineraries:', error);
         }
       }
     };
-  
+
     fetchItineraries();
   }, [userId]);
-  
+
   const handleCardClick = (itinerary: Itinerary) => {
     navigate(`/ItineraryPage`, { state: itinerary });
   };
@@ -70,11 +71,11 @@ const MyItinerary: React.FC = () => {
         .from('Itinerary')
         .update(updatedItinerary)
         .eq('id', updatedItinerary.id);
-  
+
       if (error) {
         throw error;
       }
-  
+
       setItineraries((prevItineraries) =>
         prevItineraries.map((itinerary) =>
           itinerary.id === updatedItinerary.id ? updatedItinerary : itinerary
@@ -124,11 +125,14 @@ const MyItinerary: React.FC = () => {
           <div className="card_container">
             {itineraries.map((itinerary) => (
               <Card
-                key={itinerary.id}
-                itinerary={itinerary}
                 onClick={() => handleCardClick(itinerary)}
-                onOptionsClick={() => handleOptionsClick(itinerary)}
-              />
+              >
+                <h2>{itinerary.name}</h2>
+                <p>{itinerary.start_date} - {itinerary.end_date}</p>
+                <button onClick={(e) => { e.stopPropagation(); handleOptionsClick(itinerary); }} className="options-button">
+                  &#8942;
+                </button>
+              </Card>
             ))}
           </div>
         </div>
@@ -142,26 +146,6 @@ const MyItinerary: React.FC = () => {
           itinerary={selectedItinerary}
         />
       )}
-    </div>
-  );
-};
-
-type CardProps = {
-  itinerary: Itinerary;
-  onClick: () => void;
-  onOptionsClick: () => void;
-};
-
-const Card: React.FC<CardProps> = ({ itinerary, onClick, onOptionsClick }) => {
-  return (
-    <div className="card-container">
-      <div className="card" onClick={onClick}>
-        <h2>{itinerary.name}</h2>
-        <p>{itinerary.start_date} - {itinerary.end_date}</p>
-        <button onClick={(e) => { e.stopPropagation(); onOptionsClick(); }} className="options-button">
-          &#8942;
-        </button>
-      </div>
     </div>
   );
 };
