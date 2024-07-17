@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage";
 import CreateItinerary from "./components/CreateItinerary";
 import MyItinerary from  "./components/MyItinerary";
 import ItineraryPage from "./components/ItineraryPage";
+import Reviews from "./components/Reviews";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/CreateItinerary" element={<CreateItinerary/>} />
         <Route path="/MyItinerary" element={<MyItinerary />} />
         <Route path="/ItineraryPage" element={<ItineraryPage />} />
+        <Route path="/Reviews" element = {<Reviews />} />
       </Routes>
     </>
   );

@@ -19,6 +19,12 @@
     align-items: center;
 }
 
+.navbar_logoheader {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
 .navbar_container ul {
     list-style: none;
     margin: 0;
@@ -38,10 +44,6 @@
     padding: 5px 10px; 
 }
 
-.navbar h1 {
-    font-size: 24px; 
-    margin: 0; 
-}
 
 .signout_button {
     margin-left: 20px; 
