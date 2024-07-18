@@ -96,7 +96,7 @@ function Reviews() {
         if (selectedReview) {
             let newNumberOfRatings = selectedReview.numberOfRatings;
             let totalRating = selectedReview.ratings * selectedReview.numberOfRatings;
-            const { data: existingRating, er    ror: existingRatingError } = await supabase
+            const { data: existingRating, error: existingRatingError } = await supabase
                 .from('UserRatings')
                 .select('*')
                 .eq('user_id', userId)
