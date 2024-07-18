@@ -14,45 +14,6 @@
     font-size: 60px;
 }
 
-.card_container {
-    width: 100%;
-    height: 60vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 80px;
-    overflow: auto;
-}
-
-.card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    padding: 20px;
-    text-align: left;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-    background-color: #e0e0e0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.card h2 {
-    margin-top: 0;
-}
-
-.card p {
-    margin: 10px 0 0;
-}
-
-.card-container {
-    position: relative;
-}
 
 .options-button {
     position: absolute;
