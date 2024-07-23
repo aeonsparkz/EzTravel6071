@@ -37,6 +37,12 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
   const [selectedMonth, setSelectedMonth] = useState<number>(state.startMonth);
   const [selectedYear, setSelectedYear] = useState<number>(state.startYear);
 
+  const sortMeetings = (meetings: Record<string, Meeting[]>) => {
+    for (const date in meetings) {
+      meetings[date].sort((a, b) => a.time.localeCompare(b.time));
+    }
+  };
+
   const fetchMeetings = async () => {
     try {
       const { data, error } = await supabase
@@ -55,6 +61,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
         acc[date].push({ time: meeting.time, description: meeting.description });
         return acc;
       }, {});
+      sortMeetings(fetchedMeetings);
       setMeetings(fetchedMeetings);
     } catch (error) {
       console.error("Error fetching meetings:", error);
@@ -274,7 +281,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
             <div>
               <h3>Activities for {activeDay.toISODate()}:</h3>
               <ul>
-                {activeDayMeetings.map((meeting, index) => (
+                {activeDayMeetings.sort((a, b) => a.time.localeCompare(b.time)).map((meeting, index) => (
                   <li key={index}>
                     {meeting.time} - {meeting.description}
                     {isUpdating && (

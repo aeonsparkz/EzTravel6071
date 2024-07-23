@@ -47,6 +47,9 @@ const ItineraryPage: React.FC = () => {
             acc[date].push({ time: meeting.time, description: meeting.description });
             return acc;
           }, {});
+          Object.keys(fetchedMeetings).forEach(date => {
+            fetchedMeetings[date].sort((a, b) => a.time.localeCompare(b.time));
+          });
           setMeetings(fetchedMeetings);
         } catch (error) {
           console.error('Error fetching meetings:', error);
@@ -154,3 +157,4 @@ const ItineraryPage: React.FC = () => {
 };
 
 export default ItineraryPage;
+  
