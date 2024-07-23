@@ -194,6 +194,7 @@ function Reviews() {
             <Navbar />
             <div className="reviews">
                 <h1>Reviews And Recommendations</h1>
+                <h2>Add your own personal review for other users to see!</h2>
                 <button className="button_addReviews" onClick={handleAddModal}>Add Review</button>
                 {isAddReviewModalOpen && (
                     <Modal isOpen={true} onClose={() => setIsAddReviewModalOpen(false)}>
@@ -226,13 +227,17 @@ function Reviews() {
                     ))}
                 </div>
             </div>
-            {selectedReview && (
-                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                    <h2>{selectedReview.title}</h2>
-                    <Starrating stars={selectedReview.ratings} onRatingChange={handleRatingChange} />
-                    <div>{selectedReview.body}</div>
-                </Modal>
-            )}
+            <div className="reviews_display">
+                {selectedReview && (
+                    <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                        <h2>{selectedReview.title}</h2>
+                        <div className="starrating">
+                            <Starrating stars={selectedReview.ratings} onRatingChange={handleRatingChange} />
+                        </div>
+                        <div>{selectedReview.body}</div>
+                    </Modal>
+                )}
+            </div>
         </div>
     );
 }

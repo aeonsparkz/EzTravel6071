@@ -117,3 +117,7 @@
     background-color: lightsteelblue;
     transform: scale(1.05); 
 }
+
+.input-box label {
+    width: 130px;
+}

@@ -73,3 +73,9 @@
     width: 80px;
     height: 30px;
 }
+
+.list_header h4 {
+    width: 500px;
+    margin-bottom: 40px;
+    font-size: 18px;
+}

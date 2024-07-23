@@ -149,7 +149,8 @@ function ExpenditureTracker({ isOpen, onClose, itineraryid }: ExpenditureTracker
                         required
                     >
                     </input>
-                    <button onClick={sumExpense}>Add Expense</button>
+                    <button onClick={sumExpense}
+                        style={{ margin: '5px', padding: '5px', backgroundColor: 'blue', color: 'white', borderRadius: '4px' }}>Add Expense</button>
                 </div>
                 <div className="results">
                     {Object.entries(groupedByDate).map(([date, items]) => (
@@ -175,7 +176,7 @@ function ExpenditureTracker({ isOpen, onClose, itineraryid }: ExpenditureTracker
                     <p>Total Expense: {totalExpense}</p>
                 </div>
             </div>
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button type="button" style={{ margin: '5px', padding: '5px', backgroundColor: 'blue', color: 'white', borderRadius: '4px' }} onClick={onClose}>Cancel</button>
         </Modal>
     )
 }
