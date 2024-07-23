@@ -10,7 +10,7 @@ function HomePage() {
                     <h1>
                         Ready to plan your next trip?
                     </h1>
-                    <a href="/CreateItinerary">Lets Go</a>
+                    <a href="/CreateItinerary">LETS GO!</a>
                 </div>
             </div>
         </div>
