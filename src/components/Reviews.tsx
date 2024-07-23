@@ -194,6 +194,9 @@ function Reviews() {
             <Navbar />
             <div className="reviews">
                 <h1>Reviews And Recommendations</h1>
+                <h2>These are recommendations from other users, you can click on each card to rate it and the amount of stars shown is the average rating.</h2>
+                <br></br>
+                <h2>Add your own personal review for other users to see!</h2>
                 <button className="button_addReviews" onClick={handleAddModal}>Add Review</button>
                 {isAddReviewModalOpen && (
                     <Modal isOpen={true} onClose={() => setIsAddReviewModalOpen(false)}>

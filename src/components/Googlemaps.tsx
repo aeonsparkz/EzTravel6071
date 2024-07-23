@@ -84,9 +84,11 @@ function Googlemaps(props: { trigger: any; setTrigger: (arg0: boolean) => void; 
                 <h4>
                     1. Type in your desired location
                     <br></br>
-                    2. Zoom into the map and click on the location marker, a location tag should pop up
+                    2. Zoom into the map and click on the location marker (a location tag should pop up)
                     <br></br>
                     3. Click on "Add this location"
+                    <br></br>
+                    4. Finally, click on "Add to Itinerary"
                 </h4>
                 <APIProvider apiKey={apiKey}>
                     <div className="map-container" style={{ borderRadius: "20px" }}>
