@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import Calendar from './Calendar';
 import Navbar from './Navbar';
+import "./styles/CalendarHandler.css"
 
 interface Meeting {
   time: string;
@@ -72,7 +73,7 @@ const CalendarHandler: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="calendar-handler_background">
       <Navbar />
       <div className="calendar-handler">
         <Calendar userId={userId} meetings={meetings} state={itinerary} />

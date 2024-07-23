@@ -194,7 +194,7 @@ const Calendar: React.FC<CalendarProps> = ({ userId, meetings: initialMeetings, 
         <div className="calendar">
           <div className="calendar-headline">
             <div className="calendar-headline-month">
-              <select
+              <select className="calendar-headline-month-name"
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(Number(e.target.value))}
               >
