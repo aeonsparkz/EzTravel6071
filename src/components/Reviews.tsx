@@ -39,6 +39,7 @@ function Reviews() {
 
     useEffect(() => {
         const fetchData = async () => {
+            console.log("fetching data"); 
             const { data, error } = await supabase
                 .from('Reviews')
                 .select('*');
@@ -93,7 +94,6 @@ function Reviews() {
 
     const handleRatingChange = async (newRating: number) => {
         if (selectedReview) {
-
             let newNumberOfRatings = selectedReview.numberOfRatings;
             let totalRating = selectedReview.ratings * selectedReview.numberOfRatings;
             const { data: existingRating, error: existingRatingError } = await supabase
