@@ -75,7 +75,7 @@ function Reviews() {
                 .select();
 
             if (error) {
-                console.error('Error inserting activity:', error);
+                console.error('Error inserting review:', error);
                 return;
             }
 

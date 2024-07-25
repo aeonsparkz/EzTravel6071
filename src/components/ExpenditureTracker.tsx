@@ -133,7 +133,8 @@ function ExpenditureTracker({ isOpen, onClose, itineraryid }: ExpenditureTracker
             </div>
             <div className="tracker">
                 <div className="inputquestions">
-                    <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                    <label htmlFor="date-input">Date</label>
+                    <input id="date-input" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
                     <input className="tracker_input-box"
                         type="text"
                         value={task}

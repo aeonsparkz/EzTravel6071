@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import CreateItinerary from '../CreateItinerary';
 import supabase from '../../supabaseClient';
 
-jest.mock('../supabaseClient');
+jest.mock('../../supabaseClient');
 
 const mockInsert = jest.fn();
 const mockGetUser = supabase.auth.getUser as jest.Mock;
