@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
           </Link>
         </div>
         <div className='signin_subheader'>
-          <h2>Travel Simply</h2>
+          <h2>Traveling Made Simpler</h2>
         </div>
         <div className='signin_container'>
           <h2>Welcome Back</h2>
