@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import SignIn from '../SignIn';
 import { signIn } from '../auth';
 
-jest.mock('./auth');
+jest.mock('../auth');
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),

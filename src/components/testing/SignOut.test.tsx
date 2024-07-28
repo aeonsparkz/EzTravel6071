@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SignOut from '../SignOut';
 import { signOut } from '../auth';
 
-jest.mock('./auth', () => ({
+jest.mock('../auth', () => ({
   signOut: jest.fn(),
 }));
 

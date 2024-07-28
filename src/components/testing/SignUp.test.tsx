@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import SignUp from '../SignUp';
 import { signUp } from '../auth';
 
-jest.mock('./auth');
+jest.mock('../auth');
 
 describe('SignUp Component', () => {
   test('renders SignUp component', () => {
